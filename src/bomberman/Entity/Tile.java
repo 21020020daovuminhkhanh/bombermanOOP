@@ -22,6 +22,6 @@ public abstract class Tile extends Entity{
 
     @Override
     public void render(Screen screen) {
-
+        screen.renderEntity((int) this.x, (int) this.y, this);
     }
 }

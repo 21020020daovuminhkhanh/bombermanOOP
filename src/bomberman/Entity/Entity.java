@@ -7,6 +7,14 @@ public abstract class Entity {
     protected double x, y;
     protected Sprite sprite;
 
+    public Entity() {
+
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
     public abstract void update();
 
     public abstract void render(Screen screen);

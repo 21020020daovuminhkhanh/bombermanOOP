@@ -200,4 +200,12 @@ public class Sprite {
             pixels[i] = color;
         }
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getPixel(int i) {
+        return pixels[i];
+    }
 }
