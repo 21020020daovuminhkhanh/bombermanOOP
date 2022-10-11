@@ -2,6 +2,7 @@ package bomberman;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -21,8 +22,7 @@ public class SpriteSheet {
 
     private void load() {
         try {
-            URL url = SpriteSheet.class.getResource(path);
-            BufferedImage image = ImageIO.read(url);
+            BufferedImage image = ImageIO.read(new File(path));
             int width = image.getWidth();
             int height = image.getHeight();
             image.getRGB(0, 0, width, height, pixels, 0, width);

@@ -1,7 +1,10 @@
 package bomberman.Entity;
 
-public class Portal extends Tile{
-    public void update() {
+import bomberman.Sprite;
 
+public class Portal extends Tile{
+    public Portal(int x, int y, Sprite sprite) {
+        super(x, y, sprite);
     }
+
 }
