@@ -18,15 +18,15 @@ public class KeyInput implements KeyListener {
             goUp = true;
         }
 
-        if (key == KeyEvent.VK_S) {
+        if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
             goDown = true;
         }
 
-        if (key == KeyEvent.VK_A) {
+        if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
             goLeft = true;
         }
 
-        if (key == KeyEvent.VK_D) {
+        if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             goRight = true;
         }
     }
@@ -39,15 +39,15 @@ public class KeyInput implements KeyListener {
             goUp = false;
         }
 
-        if (key == KeyEvent.VK_S) {
+        if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
             goDown = false;
         }
 
-        if (key == KeyEvent.VK_A) {
+        if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
             goLeft = false;
         }
 
-        if (key == KeyEvent.VK_D) {
+        if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             goRight = false;
         }
     }

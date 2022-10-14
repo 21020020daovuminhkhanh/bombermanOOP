@@ -3,8 +3,12 @@ package bomberman.Entity;
 import bomberman.Screen;
 import bomberman.Sprite;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 public abstract class Entity {
-    protected double x, y;
+    protected int x, y;  //Toa do entity
     protected Sprite sprite;
 
     public Entity() {

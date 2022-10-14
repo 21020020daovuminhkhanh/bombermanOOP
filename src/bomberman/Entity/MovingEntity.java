@@ -3,6 +3,8 @@ package bomberman.Entity;
 import bomberman.Screen;
 
 public abstract class MovingEntity extends Entity{
+    protected int speed;   //Toc do cua entity chuyen dong
+
     public void update() {
 
     }
