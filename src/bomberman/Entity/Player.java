@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends MovingEntity {
-    BufferedImage classic;
+    //cho gamepanel va key input vao super class
     public BufferedImage[] up = new BufferedImage[3];
     public BufferedImage[] down = new BufferedImage[3];
     public BufferedImage[] left = new BufferedImage[3];
@@ -18,9 +18,6 @@ public class Player extends MovingEntity {
     public boolean moving;
     public int frame = 0;
     public int playerAnimation = 0;
-
-    GamePanel gamePanel;
-    KeyInput keyInput;
 
     public Player(GamePanel g, KeyInput k) {
         gamePanel = g;

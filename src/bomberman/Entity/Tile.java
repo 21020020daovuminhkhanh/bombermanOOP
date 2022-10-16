@@ -3,12 +3,10 @@ package bomberman.Entity;
 import bomberman.Screen;
 import bomberman.Sprite;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Tile extends Entity{
-    public Tile(int x, int y, Sprite sprite) {
-        this.x = x;
-        this.y = y;
-        this.sprite = sprite;
-    }
+    protected BufferedImage image;
 
     @Override
     public void update() {
