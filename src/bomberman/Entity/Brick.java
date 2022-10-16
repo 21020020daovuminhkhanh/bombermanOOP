@@ -13,6 +13,11 @@ public class Brick extends Tile{
         getImage();
     }
 
+    public void setCoordinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public void getImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/brick.png"));
@@ -22,7 +27,7 @@ public class Brick extends Tile{
     }
 
     public void draw(Graphics2D g2) {
-        g2.drawImage(image, 0, 48, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
 }

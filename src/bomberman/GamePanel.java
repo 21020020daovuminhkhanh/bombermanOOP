@@ -4,6 +4,7 @@ import bomberman.Entity.Brick;
 import bomberman.Entity.Grass;
 import bomberman.Entity.Player;
 import bomberman.Entity.Wall;
+import bomberman.Level;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -20,9 +21,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyInput keyInput = new KeyInput();
     Thread thread;
     Player player = new Player(this, keyInput);
-    Grass grass = new Grass(this);
-    Wall wall = new Wall(this);
-    Brick brick = new Brick(this);
+    Level level = new Level(this);
 
     int x1 = 100;
     int y1 = 100;
@@ -62,9 +61,7 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        grass.draw(g2);
-        brick.draw(g2);
-        wall.draw(g2);
+        level.draw(g2);
         player.draw(g2);
 
         g2.dispose();
