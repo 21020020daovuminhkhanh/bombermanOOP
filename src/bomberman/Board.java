@@ -15,10 +15,4 @@ public class Board {
     public void addEntity(Entity entity) {
         entities.add(entity);
     }
-
-    public void render(Screen screen) {
-        for (Entity e : entities) {
-            e.render(screen);
-        }
-    }
 }

@@ -12,12 +12,6 @@ public class Screen {
         height = h;
         pixels = new int[w * h];
     }
-
-    //Hiển thị entity ở tọa độ x, y.
-    public void renderEntity(int x, int y, Entity entity) {
-        int color = entity.getSprite().getPixel(x + y * entity.getSprite().getSize());
-        pixels[x + y * width] = color;
-    }
     
 
 }

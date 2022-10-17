@@ -17,9 +17,4 @@ public abstract class Tile extends Entity{
     public boolean collide(Entity entity) {
         return false;
     }
-
-    @Override
-    public void render(Screen screen) {
-        screen.renderEntity((int) this.x, (int) this.y, this);
-    }
 }

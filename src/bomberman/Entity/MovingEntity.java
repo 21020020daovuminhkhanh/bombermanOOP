@@ -14,8 +14,4 @@ public abstract class MovingEntity extends Entity{
     public boolean collide(Entity entity) {
         return false;
     }
-
-    public void render(Screen screen) {
-
-    }
 }

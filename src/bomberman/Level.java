@@ -1,8 +1,6 @@
 package bomberman;
 
-import bomberman.Entity.Brick;
-import bomberman.Entity.Grass;
-import bomberman.Entity.Wall;
+import bomberman.Entity.*;
 import bomberman.Game;
 import bomberman.GamePanel;
 
@@ -18,10 +16,22 @@ public class Level {
     int height;
     int width;
     char[][] mapTile;
+    Wall wall;
+    Grass grass;
+    Brick brick;
+    Portal portal;
+    Balloom balloom;
+    Oneal oneal;
     
     public Level(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         loadMapTile();
+        wall = new Wall(gamePanel);
+        grass = new Grass(gamePanel);
+        brick = new Brick(gamePanel);
+        portal = new Portal(gamePanel);
+        balloom = new Balloom(gamePanel);
+        oneal = new Oneal(gamePanel);
     }
 
     public void loadMapTile() {
@@ -55,21 +65,30 @@ public class Level {
             for (int j = 0; j < height; j++) {
 
                 if (mapTile[i][j] == '#') {
-                    Wall wall = new Wall(gamePanel);
                     wall.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
                     wall.draw(g2);
                 }
 
                 if (mapTile[i][j] == ' ') {
-                    Grass grass = new Grass(gamePanel);
                     grass.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
                     grass.draw(g2);
                 }
 
                 if (mapTile[i][j] == '*') {
-                    Brick brick = new Brick(gamePanel);
                     brick.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
                     brick.draw(g2);
+                }
+                if (mapTile[i][j] == 'p') {
+                    portal.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                    portal.draw(g2);
+                }
+                if (mapTile[i][j] == '1') {
+                    balloom.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                    balloom.draw(g2);
+                }
+                if (mapTile[i][j] == '2') {
+                    oneal.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                    oneal.draw(g2);
                 }
             }
         }

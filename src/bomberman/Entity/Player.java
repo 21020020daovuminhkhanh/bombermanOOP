@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends MovingEntity {
-    //cho gamepanel va key input vao super class
     public BufferedImage[] up = new BufferedImage[3];
     public BufferedImage[] down = new BufferedImage[3];
     public BufferedImage[] left = new BufferedImage[3];
