@@ -16,12 +16,12 @@ public class Level {
     int height;
     int width;
     char[][] mapTile;
-    Wall wall;
-    Grass grass;
-    Brick brick;
-    Portal portal;
-    Balloom balloom;
-    Oneal oneal;
+    Tile wall;
+    Tile grass;
+    Tile brick;
+    Tile portal;
+    MovingEntity balloom;
+    MovingEntity oneal;
     
     public Level(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -63,32 +63,37 @@ public class Level {
     public void draw(Graphics2D g2) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
+                switch (mapTile[i][j]) {
+                    case '#':
+                        wall.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                        wall.draw(g2);
+                        break;
 
-                if (mapTile[i][j] == '#') {
-                    wall.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
-                    wall.draw(g2);
-                }
+                    case ' ':
+                        grass.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                        grass.draw(g2);
+                        break;
 
-                if (mapTile[i][j] == ' ') {
-                    grass.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
-                    grass.draw(g2);
-                }
+                    case '*':
+                        brick.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                        brick.draw(g2);
+                        break;
 
-                if (mapTile[i][j] == '*') {
-                    brick.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
-                    brick.draw(g2);
-                }
-                if (mapTile[i][j] == 'p') {
-                    portal.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
-                    portal.draw(g2);
-                }
-                if (mapTile[i][j] == '1') {
-                    balloom.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
-                    balloom.draw(g2);
-                }
-                if (mapTile[i][j] == '2') {
-                    oneal.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
-                    oneal.draw(g2);
+                    case 'p':
+                        portal.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                        portal.draw(g2);
+                        break;
+
+                    case '1':
+                        balloom.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                        balloom.draw(g2);
+                        break;
+
+                    case '2':
+                        oneal.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                        oneal.draw(g2);
+                        break;
+
                 }
             }
         }

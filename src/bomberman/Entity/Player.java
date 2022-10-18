@@ -39,6 +39,18 @@ public class Player extends MovingEntity {
             right[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right.png"));
             right[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right_1.png"));
             right[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right_2.png"));
+            removeColor(up[0]);
+            removeColor(up[1]);
+            removeColor(up[2]);
+            removeColor(down[0]);
+            removeColor(down[1]);
+            removeColor(down[2]);
+            removeColor(left[0]);
+            removeColor(left[1]);
+            removeColor(left[2]);
+            removeColor(right[0]);
+            removeColor(right[1]);
+            removeColor(right[2]);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,6 +66,10 @@ public class Player extends MovingEntity {
     }
 
     public void update() {
+        if (x > gamePanel.SCREEN_WIDTH - gamePanel.tileSize) x = gamePanel.SCREEN_WIDTH - gamePanel.tileSize;
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+        if (y > gamePanel.SCREEN_HEIGHT - gamePanel.tileSize) y = gamePanel.SCREEN_HEIGHT - gamePanel.tileSize;
         moving = false;
         if (keyInput.goUp) {
             moving = true;
@@ -105,4 +121,22 @@ public class Player extends MovingEntity {
         }
         g2.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
     }
+
+    public void setCoordinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void removeColor(BufferedImage image) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                if (image.getRGB(i, j) == Color.MAGENTA.getRGB()) {
+                    image.setRGB(i, j, 0);
+                }
+            }
+        }
+    }
+
 }
