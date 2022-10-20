@@ -23,7 +23,8 @@ public class GamePanel extends JPanel implements Runnable{
     KeyInput keyInput = new KeyInput();
     Thread thread;
     public Player player = new Player(this, keyInput);
-    Level level = new Level(this);
+    public CheckCollision checkCollision = new CheckCollision(this);
+    public Level level = new Level(this);
 
     int x1 = 100;
     int y1 = 100;

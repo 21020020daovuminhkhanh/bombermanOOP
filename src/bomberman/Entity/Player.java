@@ -13,16 +13,20 @@ public class Player extends MovingEntity {
     public BufferedImage[] down = new BufferedImage[3];
     public BufferedImage[] left = new BufferedImage[3];
     public BufferedImage[] right = new BufferedImage[3];
-    public String direction;
-    public boolean moving;
+    public boolean isMoving;
     public int frame = 0;
     public int playerAnimation = 0;
+
+    //Toa do tren man hinh.
     public int screenX;
     public int screenY;
 
     public Player(GamePanel g, KeyInput k) {
         gamePanel = g;
         keyInput = k;
+
+        hitbox = new Rectangle(0, 9, 36, 36);
+
         setStartPosition();
         setPlayerImage();
     }
@@ -70,13 +74,12 @@ public class Player extends MovingEntity {
         }
     }
 
-    //Xuat hien o goc tren cung ben trai ban do
     public void setStartPosition() {
         mapX = gamePanel.tileSize;
         mapY = gamePanel.tileSize;
         speed = 4;
         direction = "down";
-        moving = false;
+        isMoving = false;
     }
 
     public void update() {
@@ -84,29 +87,36 @@ public class Player extends MovingEntity {
         if (mapX >= gamePanel.MAP_WIDTH - 36) mapX = gamePanel.MAP_WIDTH - 36;
         if (mapY <= 0) mapY = 0;
         if (mapY >= gamePanel.MAP_HEIGHT - 48) mapY = gamePanel.MAP_HEIGHT - 48;
-        moving = false;
+        isMoving = false;
+
         if (keyInput.goUp) {
-            moving = true;
+            isMoving = true;
             direction = "up";
-            mapY -= speed;
         }
         if (keyInput.goDown) {
-            moving = true;
+            isMoving = true;
             direction = "down";
-            mapY += speed;
         }
         if (keyInput.goLeft) {
-            moving = true;
+            isMoving = true;
             direction = "left";
-            mapX -= speed;
         }
         if (keyInput.goRight) {
-            moving = true;
+            isMoving = true;
             direction = "right";
-            mapX += speed;
         }
 
-        if (moving) {
+        isCollide = false;
+        gamePanel.checkCollision.checkTile(this);
+
+        if (!isCollide && isMoving) {
+            if (direction == "up") mapY -= speed;
+            if (direction == "down") mapY += speed;
+            if (direction == "left") mapX -= speed;
+            if (direction == "right") mapX += speed;
+        }
+
+        if (isMoving) {
             frame++;
             if (frame > 8) {
                 frame = 0;
@@ -147,6 +157,7 @@ public class Player extends MovingEntity {
         this.mapY = y;
     }
 
+    //xoa mau hong thay bang mau cua grass.
     public void removeColor(BufferedImage image) {
         int w = image.getWidth();
         int h = image.getHeight();
