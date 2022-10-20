@@ -8,6 +8,7 @@ import java.awt.*;
 public abstract class MovingEntity extends Entity{
     protected int speed;   //Toc do cua entity chuyen dong
     protected KeyInput keyInput;
+    public Grass g = new Grass(gamePanel);
 
     public abstract void setCoordinate(int x, int y);
 

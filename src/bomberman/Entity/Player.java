@@ -17,6 +17,8 @@ public class Player extends MovingEntity {
     public boolean moving;
     public int frame = 0;
     public int playerAnimation = 0;
+    public int screenX;
+    public int screenY;
 
     public Player(GamePanel g, KeyInput k) {
         gamePanel = g;
@@ -28,17 +30,29 @@ public class Player extends MovingEntity {
     public void setPlayerImage() {
         try {
             up[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_up.png"));
+            up[0] = up[0].getSubimage(0, 0, 12, 16);
             up[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_up_1.png"));
+            up[1] = up[1].getSubimage(0, 0, 12, 16);
             up[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_up_2.png"));
+            up[2] = up[2].getSubimage(0, 0, 12, 16);
             down[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_down.png"));
+            down[0] = down[0].getSubimage(0, 0, 12, 16);
             down[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_down_1.png"));
+            down[1] = down[1].getSubimage(0, 0, 12, 16);
             down[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_down_2.png"));
+            down[2] = down[2].getSubimage(0, 0, 12, 16);
             left[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_left.png"));
+            left[0] = left[0].getSubimage(0, 0, 12, 16);
             left[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_left_1.png"));
+            left[1] = left[1].getSubimage(0, 0, 12, 16);
             left[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_left_2.png"));
+            left[2] = left[2].getSubimage(0, 0, 12, 16);
             right[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right.png"));
+            right[0] = right[0].getSubimage(0, 0, 12, 16);
             right[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right_1.png"));
+            right[1] = right[1].getSubimage(0, 0, 12, 16);
             right[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right_2.png"));
+            right[2] = right[2].getSubimage(0, 0, 12, 16);
             removeColor(up[0]);
             removeColor(up[1]);
             removeColor(up[2]);
@@ -58,48 +72,53 @@ public class Player extends MovingEntity {
 
     //Xuat hien o goc tren cung ben trai ban do
     public void setStartPosition() {
-        x = gamePanel.tileSize;
-        y = gamePanel.tileSize;
+        mapX = gamePanel.tileSize;
+        mapY = gamePanel.tileSize;
         speed = 4;
         direction = "down";
         moving = false;
     }
 
     public void update() {
-        if (x > gamePanel.SCREEN_WIDTH - gamePanel.tileSize) x = gamePanel.SCREEN_WIDTH - gamePanel.tileSize;
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        if (y > gamePanel.SCREEN_HEIGHT - gamePanel.tileSize) y = gamePanel.SCREEN_HEIGHT - gamePanel.tileSize;
+        if (mapX <= 0) mapX = 0;
+        if (mapX >= gamePanel.MAP_WIDTH - 36) mapX = gamePanel.MAP_WIDTH - 36;
+        if (mapY <= 0) mapY = 0;
+        if (mapY >= gamePanel.MAP_HEIGHT - 48) mapY = gamePanel.MAP_HEIGHT - 48;
         moving = false;
         if (keyInput.goUp) {
             moving = true;
             direction = "up";
-            y -= speed;
+            mapY -= speed;
         }
         if (keyInput.goDown) {
             moving = true;
             direction = "down";
-            y += speed;
+            mapY += speed;
         }
         if (keyInput.goLeft) {
             moving = true;
             direction = "left";
-            x -= speed;
+            mapX -= speed;
         }
         if (keyInput.goRight) {
             moving = true;
             direction = "right";
-            x += speed;
+            mapX += speed;
         }
 
         if (moving) {
             frame++;
-            if (frame > 5) {
+            if (frame > 8) {
                 frame = 0;
                 playerAnimation++;
                 if (playerAnimation > 2) playerAnimation = 0;
             }
         } else playerAnimation = 0;
+
+        screenX = mapX;
+        screenY = mapY;
+        if (mapX > gamePanel.SCREEN_WIDTH / 2 && mapX < gamePanel.MAP_WIDTH - gamePanel.SCREEN_WIDTH / 2) screenX = gamePanel.SCREEN_WIDTH / 2;
+        if (mapX >= gamePanel.MAP_WIDTH - gamePanel.SCREEN_WIDTH / 2) screenX = mapX - gamePanel.SCREEN_WIDTH;
     }
 
     public void draw(Graphics2D g2) {
@@ -119,12 +138,13 @@ public class Player extends MovingEntity {
                 image = right[playerAnimation];
                 break;
         }
-        g2.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
+
+        g2.drawImage(image, screenX, screenY, image.getWidth() * gamePanel.scale, image.getHeight() * gamePanel.scale, null);
     }
 
     public void setCoordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.mapX = x;
+        this.mapY = y;
     }
 
     public void removeColor(BufferedImage image) {
@@ -133,7 +153,7 @@ public class Player extends MovingEntity {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 if (image.getRGB(i, j) == Color.MAGENTA.getRGB()) {
-                    image.setRGB(i, j, 0);
+                    image.setRGB(i, j, g.image.getRGB(i,j));
                 }
             }
         }

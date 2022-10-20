@@ -1,7 +1,6 @@
 package bomberman.Entity;
 
 import bomberman.GamePanel;
-import bomberman.Sprite;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,8 +13,8 @@ public class Brick extends Tile{
     }
 
     public void setCoordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.mapX = x;
+        this.mapY = y;
     }
 
     public void getImage() {
@@ -27,7 +26,9 @@ public class Brick extends Tile{
     }
 
     public void draw(Graphics2D g2) {
-        g2.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
+        int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
+        int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
+        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
 }

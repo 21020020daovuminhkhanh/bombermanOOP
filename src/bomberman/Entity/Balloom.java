@@ -15,19 +15,33 @@ public class Balloom extends MovingEntity{
     }
 
     public void setCoordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.mapX = x;
+        this.mapY = y;
     }
 
     public void getImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/balloom_right1.png"));
+            removeColor(image);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void draw(Graphics2D g2) {
-        g2.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
+        int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
+        int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
+        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+    }
+    public void removeColor(BufferedImage image) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                if (image.getRGB(i, j) == Color.MAGENTA.getRGB()) {
+                    image.setRGB(i, j, g.image.getRGB(i,j));
+                }
+            }
+        }
     }
 }

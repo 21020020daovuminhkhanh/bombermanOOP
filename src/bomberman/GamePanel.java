@@ -14,13 +14,15 @@ public class GamePanel extends JPanel implements Runnable{
     public final int size = 16;
     public final int scale = 3;
     public final int tileSize = size * scale;
-    final int cols = 15;
+    final int cols = 31;
     final int rows = 13;
-    public final int SCREEN_WIDTH = cols * tileSize;
+    public final int MAP_WIDTH = cols * tileSize;
+    public final int MAP_HEIGHT = rows * tileSize;
+    public final int SCREEN_WIDTH = cols * tileSize / 2;
     public final int SCREEN_HEIGHT = rows * tileSize;
     KeyInput keyInput = new KeyInput();
     Thread thread;
-    Player player = new Player(this, keyInput);
+    public Player player = new Player(this, keyInput);
     Level level = new Level(this);
 
     int x1 = 100;

@@ -1,17 +1,12 @@
 package bomberman.Entity;
 
-import bomberman.Game;
-import bomberman.GamePanel;
-import bomberman.Screen;
-import bomberman.Sprite;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import bomberman.GamePanel;
 
 public abstract class Entity {
-    protected int x, y;  //Toa do entity
+    protected int mapX, mapY;  //Toa do entity
     protected GamePanel gamePanel;
+
 
     public Entity() {
 
