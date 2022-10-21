@@ -25,7 +25,7 @@ public class Player extends MovingEntity {
         gamePanel = g;
         keyInput = k;
 
-        hitbox = new Rectangle(0, 9, 36, 36);
+        hitbox = new Rectangle(6, 21, 24, 24);
 
         setStartPosition();
         setPlayerImage();
@@ -164,7 +164,7 @@ public class Player extends MovingEntity {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 if (image.getRGB(i, j) == Color.MAGENTA.getRGB()) {
-                    image.setRGB(i, j, g.image.getRGB(i,j));
+                    image.setRGB(i, j, g.image.getRGB(i, j));
                 }
             }
         }

@@ -20,6 +20,7 @@ public class Portal extends Tile{
     public void getImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/portal.png"));
+            image = image.getSubimage(1, 2, 13, 12);
         } catch (IOException e) {
             e.printStackTrace();
         }

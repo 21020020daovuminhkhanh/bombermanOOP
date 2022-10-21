@@ -15,21 +15,23 @@ public class Level {
     int level;
     int height;
     int width;
-    char[][] mapTile;
-    Tile wall;
-    Tile grass;
-    Tile brick;
-    Tile portal;
+    public char[][] mapTile;
+    public Tile wall;
+    public Tile grass;
+    public Tile brick;
+    public Tile portal;
     MovingEntity balloom;
     MovingEntity oneal;
     
     public Level(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         loadMapTile();
+
         wall = new Wall(gamePanel);
         grass = new Grass(gamePanel);
         brick = new Brick(gamePanel);
         portal = new Portal(gamePanel);
+
         balloom = new Balloom(gamePanel);
         oneal = new Oneal(gamePanel);
     }
@@ -79,7 +81,7 @@ public class Level {
                         brick.draw(g2);
                         break;
 
-                    case 'p':
+                    case 'x':
                         portal.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
                         portal.draw(g2);
                         break;
