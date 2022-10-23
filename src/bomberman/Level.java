@@ -1,12 +1,12 @@
 package bomberman;
 
-import bomberman.Entity.*;
-import bomberman.Game;
-import bomberman.GamePanel;
+import bomberman.Entity.MovingEntity.Balloom;
+import bomberman.Entity.MovingEntity.MovingEntity;
+import bomberman.Entity.MovingEntity.Oneal;
+import bomberman.Entity.Tile.*;
 
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 

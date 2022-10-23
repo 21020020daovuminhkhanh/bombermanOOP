@@ -1,10 +1,7 @@
 package bomberman;
 
-import bomberman.Entity.Brick;
-import bomberman.Entity.Grass;
-import bomberman.Entity.Player;
-import bomberman.Entity.Wall;
-import bomberman.Level;
+import bomberman.Entity.CheckCollision;
+import bomberman.Entity.MovingEntity.Player;
 
 import javax.swing.JPanel;
 import java.awt.*;
