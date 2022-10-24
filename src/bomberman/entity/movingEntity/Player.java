@@ -1,7 +1,8 @@
-package bomberman.Entity.MovingEntity;
+package bomberman.entity.movingEntity;
 
 import bomberman.GamePanel;
 import bomberman.KeyInput;
+import bomberman.entity.Bomb;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,6 +17,7 @@ public class Player extends MovingEntity {
     public boolean isMoving;
     public int frame = 0;
     public int playerAnimation = 0;
+    public Bomb bomb;
 
     //Toa do tren man hinh.
     public int screenX;
@@ -115,6 +117,14 @@ public class Player extends MovingEntity {
             if (direction == "left") mapX -= speed;
             if (direction == "right") mapX += speed;
         }
+
+        if (keyInput.putBomb) {
+            if (bomb == null) {
+                bomb = new Bomb(gamePanel);
+                gamePanel.level.mapTile[bomb.bombTileX][bomb.bombTileY] = '3';
+            }
+        }
+        if (bomb != null && bomb.countToExplode > 120) bomb = null;
 
         if (isMoving) {
             frame++;

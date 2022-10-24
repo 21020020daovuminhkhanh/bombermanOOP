@@ -1,7 +1,7 @@
 package bomberman;
 
-import bomberman.Entity.CheckCollision;
-import bomberman.Entity.MovingEntity.Player;
+import bomberman.entity.CheckCollision;
+import bomberman.entity.movingEntity.Player;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -11,8 +11,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int size = 16;
     public final int scale = 3;
     public final int tileSize = size * scale;
-    final int cols = 31;
-    final int rows = 13;
+    public final int cols = 31;
+    public final int rows = 13;
     public final int MAP_WIDTH = cols * tileSize;
     public final int MAP_HEIGHT = rows * tileSize;
     public final int SCREEN_WIDTH = cols * tileSize / 2;
@@ -54,6 +54,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update() {
         player.update();
+        if (player.bomb != null) {
+            player.bomb.update();
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
-package bomberman.Entity;
+package bomberman.entity;
 
-import bomberman.Entity.MovingEntity.MovingEntity;
+import bomberman.entity.movingEntity.MovingEntity;
 import bomberman.GamePanel;
 
 public class CheckCollision {
@@ -28,7 +28,8 @@ public class CheckCollision {
                 eTopRow = (topMapY - e.speed) / gamePanel.tileSize;
                 infrontTileNum1 = gamePanel.level.mapTile[eLeftCol][eTopRow];
                 infrontTileNum2 = gamePanel.level.mapTile[eRightCol][eTopRow];
-                if (infrontTileNum1 != ' ' || infrontTileNum2 != ' ') {
+                if ((infrontTileNum1 != ' ' || infrontTileNum2 != ' ') &&
+                    (infrontTileNum1 != '3' || infrontTileNum2 != '3')) {
                     e.isCollide = true;
                 }
                 break;
@@ -36,7 +37,8 @@ public class CheckCollision {
                 eBottomRow = (bottomMapY + e.speed) / gamePanel.tileSize;
                 infrontTileNum1 = gamePanel.level.mapTile[eLeftCol][eBottomRow];
                 infrontTileNum2 = gamePanel.level.mapTile[eRightCol][eBottomRow];
-                if (infrontTileNum1 != ' ' || infrontTileNum2 != ' ') {
+                if ((infrontTileNum1 != ' ' || infrontTileNum2 != ' ') &&
+                    (infrontTileNum1 != '3' || infrontTileNum2 != '3')) {
                     e.isCollide = true;
                 }
                 break;
@@ -44,7 +46,8 @@ public class CheckCollision {
                 eLeftCol = (leftMapX - e.speed) / gamePanel.tileSize;
                 infrontTileNum1 = gamePanel.level.mapTile[eLeftCol][eTopRow];
                 infrontTileNum2 = gamePanel.level.mapTile[eLeftCol][eBottomRow];
-                if (infrontTileNum1 != ' ' || infrontTileNum2 != ' ') {
+                if ((infrontTileNum1 != ' ' || infrontTileNum2 != ' ') &&
+                    (infrontTileNum1 != '3' || infrontTileNum2 != '3')) {
                     e.isCollide = true;
                 }
                 break;
@@ -52,7 +55,8 @@ public class CheckCollision {
                 eRightCol = (rightMapX + e.speed) / gamePanel.tileSize;
                 infrontTileNum1 = gamePanel.level.mapTile[eRightCol][eBottomRow];
                 infrontTileNum2 = gamePanel.level.mapTile[eRightCol][eTopRow];
-                if (infrontTileNum1 != ' ' || infrontTileNum2 != ' ') {
+                if ((infrontTileNum1 != ' ' || infrontTileNum2 != ' ') &&
+                    (infrontTileNum1 != '3' || infrontTileNum2 != '3')) {
                     e.isCollide = true;
                 }
                 break;

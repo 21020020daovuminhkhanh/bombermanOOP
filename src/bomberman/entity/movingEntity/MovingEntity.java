@@ -1,7 +1,7 @@
-package bomberman.Entity.MovingEntity;
+package bomberman.entity.movingEntity;
 
-import bomberman.Entity.Entity;
-import bomberman.Entity.Tile.Grass;
+import bomberman.entity.Entity;
+import bomberman.entity.tile.Grass;
 import bomberman.KeyInput;
 
 import java.awt.*;

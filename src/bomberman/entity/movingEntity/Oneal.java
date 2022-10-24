@@ -1,13 +1,15 @@
-package bomberman.Entity.Tile;
+package bomberman.entity.movingEntity;
 
 import bomberman.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Grass extends Tile{
-    public Grass(GamePanel gp) {
+public class Oneal extends MovingEntity{
+    BufferedImage image;
+    public Oneal(GamePanel gp) {
         gamePanel = gp;
         getImage();
     }
@@ -19,7 +21,8 @@ public class Grass extends Tile{
 
     public void getImage() {
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/sprites/grass.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right1.png"));
+            removeColor(image);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,5 +32,17 @@ public class Grass extends Tile{
         int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
         g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+    }
+
+    public void removeColor(BufferedImage image) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                if (image.getRGB(i, j) == Color.MAGENTA.getRGB()) {
+                    image.setRGB(i, j, g.image.getRGB(i,j));
+                }
+            }
+        }
     }
 }

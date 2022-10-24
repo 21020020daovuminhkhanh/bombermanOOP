@@ -1,9 +1,10 @@
 package bomberman;
 
-import bomberman.Entity.MovingEntity.Balloom;
-import bomberman.Entity.MovingEntity.MovingEntity;
-import bomberman.Entity.MovingEntity.Oneal;
-import bomberman.Entity.Tile.*;
+import bomberman.entity.Bomb;
+import bomberman.entity.movingEntity.Balloom;
+import bomberman.entity.movingEntity.MovingEntity;
+import bomberman.entity.movingEntity.Oneal;
+import bomberman.entity.tile.*;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -22,6 +23,7 @@ public class Level {
     public Tile portal;
     MovingEntity balloom;
     MovingEntity oneal;
+    //Bomb bomb;
     
     public Level(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -34,6 +36,7 @@ public class Level {
 
         balloom = new Balloom(gamePanel);
         oneal = new Oneal(gamePanel);
+        //bomb = new Bomb(gamePanel);
     }
 
     public void loadMapTile() {
@@ -96,6 +99,10 @@ public class Level {
                         oneal.draw(g2);
                         break;
 
+                    case '3':
+                        gamePanel.player.bomb.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+                        gamePanel.player.bomb.draw(g2);
+                        break;
                 }
             }
         }

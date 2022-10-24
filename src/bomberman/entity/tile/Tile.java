@@ -1,6 +1,6 @@
-package bomberman.Entity.Tile;
+package bomberman.entity.tile;
 
-import bomberman.Entity.Entity;
+import bomberman.entity.Entity;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,4 +1,4 @@
-package bomberman.Entity.Tile;
+package bomberman.entity.tile;
 
 import bomberman.GamePanel;
 
@@ -6,8 +6,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 
-public class Brick extends Tile{
-    public Brick(GamePanel gp) {
+public class Wall extends Tile{
+    public Wall(GamePanel gp) {
         gamePanel = gp;
         getImage();
     }
@@ -19,7 +19,7 @@ public class Brick extends Tile{
 
     public void getImage() {
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/sprites/brick.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/sprites/wall.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,5 +30,4 @@ public class Brick extends Tile{
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
         g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
-
 }

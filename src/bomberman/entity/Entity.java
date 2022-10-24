@@ -1,4 +1,4 @@
-package bomberman.Entity;
+package bomberman.entity;
 
 
 import bomberman.GamePanel;

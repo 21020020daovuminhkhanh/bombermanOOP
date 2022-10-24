@@ -29,6 +29,10 @@ public class KeyInput implements KeyListener {
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             goRight = true;
         }
+
+        if (key == KeyEvent.VK_SPACE) {
+            putBomb = true;
+        }
     }
 
     @Override
@@ -49,6 +53,10 @@ public class KeyInput implements KeyListener {
 
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             goRight = false;
+        }
+
+        if (key == KeyEvent.VK_SPACE) {
+            putBomb = false;
         }
     }
 }
