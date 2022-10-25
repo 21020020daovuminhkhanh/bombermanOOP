@@ -13,6 +13,7 @@ public abstract class MovingEntity extends Entity {
     public Grass g = new Grass(gamePanel);
     public Rectangle hitbox;
     public boolean isCollide;
+    public int frame = 0;
 
     public abstract void setCoordinate(int x, int y);
 

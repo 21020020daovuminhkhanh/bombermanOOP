@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update() {
         player.update();
+        level.update();
         if (player.bomb != null) {
             player.bomb.update();
         }

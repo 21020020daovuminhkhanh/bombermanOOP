@@ -15,7 +15,6 @@ public class Player extends MovingEntity {
     public BufferedImage[] left = new BufferedImage[3];
     public BufferedImage[] right = new BufferedImage[3];
     public boolean isMoving;
-    public int frame = 0;
     public int playerAnimation = 0;
     public Bomb bomb;
 
@@ -124,7 +123,9 @@ public class Player extends MovingEntity {
                 gamePanel.level.mapTile[bomb.bombTileX][bomb.bombTileY] = '3';
             }
         }
-        if (bomb != null && bomb.countToExplode > 120) bomb = null;
+        if (bomb != null && bomb.bombAnimationCycle > bomb.maxBombAnimationCycle) {
+            bomb = null;
+        }
 
         if (isMoving) {
             frame++;

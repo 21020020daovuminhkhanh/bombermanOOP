@@ -8,7 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Oneal extends MovingEntity{
-    BufferedImage image;
+    BufferedImage[] onealImage = new BufferedImage[3];
+    public int onealAnimation = 0;
     public Oneal(GamePanel gp) {
         gamePanel = gp;
         getImage();
@@ -21,17 +22,30 @@ public class Oneal extends MovingEntity{
 
     public void getImage() {
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right1.png"));
-            removeColor(image);
+            onealImage[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right1.png"));
+            onealImage[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right2.png"));
+            onealImage[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right3.png"));
+            removeColor(onealImage[0]);
+            removeColor(onealImage[1]);
+            removeColor(onealImage[2]);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void update() {
+        frame++;
+        if (frame > 8) {
+            frame = 0;
+            onealAnimation++;
+            if (onealAnimation > 2) onealAnimation = 0;
         }
     }
 
     public void draw(Graphics2D g2) {
         int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
-        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(onealImage[onealAnimation], screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
     public void removeColor(BufferedImage image) {

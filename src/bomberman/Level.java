@@ -65,6 +65,11 @@ public class Level {
         }
     }
 
+    public void update() {
+        balloom.update();
+        oneal.update();
+    }
+
     public void draw(Graphics2D g2) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
