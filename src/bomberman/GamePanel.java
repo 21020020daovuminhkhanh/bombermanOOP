@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
             try {
                 update();
                 repaint();
-                thread.sleep(1000/60);
+                thread.sleep(1000/60);  // 60fps
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -55,9 +55,6 @@ public class GamePanel extends JPanel implements Runnable{
     public void update() {
         player.update();
         level.update();
-        if (player.bomb != null) {
-            player.bomb.update();
-        }
     }
 
     @Override

@@ -4,9 +4,12 @@ import bomberman.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Brick extends Tile{
+    BufferedImage[] brickExploded = new BufferedImage[3];
+
     public Brick(GamePanel gp) {
         gamePanel = gp;
         getImage();
@@ -20,6 +23,9 @@ public class Brick extends Tile{
     public void getImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/brick.png"));
+            brickExploded[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/brick_exploded.png"));
+            brickExploded[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/brick_exploded1.png"));
+            brickExploded[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/brick_exploded2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

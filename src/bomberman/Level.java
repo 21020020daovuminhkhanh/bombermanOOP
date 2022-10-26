@@ -104,10 +104,10 @@ public class Level {
                         oneal.draw(g2);
                         break;
 
-                    case '3':
-                        gamePanel.player.bomb.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
-                        gamePanel.player.bomb.draw(g2);
-                        break;
+//                    case '3':
+//                        gamePanel.player.bomb.setCoordinate(i * gamePanel.tileSize, j * gamePanel.tileSize);
+//                        gamePanel.player.bomb.draw(g2);
+//                        break;
                 }
             }
         }

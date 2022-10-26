@@ -4,7 +4,7 @@ import bomberman.entity.tile.Tile;
 
 import java.awt.*;
 
-public class Item extends Tile {
+public abstract class Item extends Tile {
     @Override
     public void setCoordinate(int x, int y) {
 

@@ -120,8 +120,12 @@ public class Player extends MovingEntity {
         if (keyInput.putBomb) {
             if (bomb == null) {
                 bomb = new Bomb(gamePanel);
-                gamePanel.level.mapTile[bomb.bombTileX][bomb.bombTileY] = '3';
+                bomb.setCoordinate(bomb.bombTileX * gamePanel.tileSize, bomb.bombTileY * gamePanel.tileSize);
+                //gamePanel.level.mapTile[bomb.bombTileX][bomb.bombTileY] = '3';
             }
+        }
+        if (bomb != null) {
+            bomb.update();
         }
         if (bomb != null && bomb.bombAnimationCycle > bomb.maxBombAnimationCycle) {
             bomb = null;
@@ -160,6 +164,9 @@ public class Player extends MovingEntity {
                 break;
         }
 
+        if (bomb != null) {
+            bomb.draw(g2);
+        }
         g2.drawImage(image, screenX, screenY, image.getWidth() * gamePanel.scale, image.getHeight() * gamePanel.scale, null);
     }
 
