@@ -4,6 +4,10 @@ import bomberman.entity.movingEntity.Balloom;
 import bomberman.entity.movingEntity.MovingEntity;
 import bomberman.entity.movingEntity.Oneal;
 import bomberman.entity.tile.*;
+import bomberman.entity.tile.item.BombItem;
+import bomberman.entity.tile.item.FlameItem;
+import bomberman.entity.tile.item.Item;
+import bomberman.entity.tile.item.SpeedItem;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -22,6 +26,10 @@ public class Level {
     public Tile portal;
     MovingEntity balloom;
     MovingEntity oneal;
+
+    Item bombItem;
+    Item speedItem;
+    Item flameItem;
     
     public Level(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -34,6 +42,10 @@ public class Level {
 
         balloom = new Balloom(gamePanel);
         oneal = new Oneal(gamePanel);
+
+        bombItem = new BombItem(gamePanel);
+        flameItem = new FlameItem(gamePanel);
+        speedItem = new SpeedItem(gamePanel);
     }
 
     public void loadMapTile() {
@@ -99,6 +111,21 @@ public class Level {
                     case '2':
                         oneal.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
                         oneal.draw(g2);
+                        break;
+
+                    case 'b':
+                        bombItem.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
+                        bombItem.draw(g2);
+                        break;
+
+                    case 'f':
+                        flameItem.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
+                        flameItem.draw(g2);
+                        break;
+
+                    case 's':
+                        speedItem.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
+                        speedItem.draw(g2);
                         break;
                 }
             }

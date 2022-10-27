@@ -107,7 +107,6 @@ public class Player extends MovingEntity {
             if (bomb == null) {
                 bomb = new Bomb(gamePanel);
                 bomb.setCoordinate(bomb.bombTileX * tileSize, bomb.bombTileY * tileSize);
-                //gamePanel.level.mapTile[bomb.bombTileX][bomb.bombTileY] = '3';
             }
         }
         if (bomb != null) {

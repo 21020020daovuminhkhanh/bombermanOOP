@@ -1,6 +1,7 @@
 package bomberman.entity;
 
 import bomberman.GamePanel;
+import bomberman.entity.tile.Brick;
 import bomberman.entity.tile.Grass;
 
 import javax.imageio.ImageIO;
@@ -80,6 +81,11 @@ public class Bomb extends Entity {
         }
         if (bombAnimationCycle == maxBombAnimationCycle) {
             explosionFlame.update();
+        }
+        for (int i = 0; i < 4; i++) {
+            if (explosionFlame.isSomeBrickExploded[i]) {
+                explosionFlame.brick[i].update();
+            }
         }
     }
 
