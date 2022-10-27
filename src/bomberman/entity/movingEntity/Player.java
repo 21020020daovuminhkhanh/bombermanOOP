@@ -35,49 +35,35 @@ public class Player extends MovingEntity {
     public void setPlayerImage() {
         try {
             up[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_up.png"));
-            up[0] = up[0].getSubimage(0, 0, 12, 16);
             up[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_up_1.png"));
-            up[1] = up[1].getSubimage(0, 0, 12, 16);
             up[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_up_2.png"));
-            up[2] = up[2].getSubimage(0, 0, 12, 16);
             down[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_down.png"));
-            down[0] = down[0].getSubimage(0, 0, 12, 16);
             down[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_down_1.png"));
-            down[1] = down[1].getSubimage(0, 0, 12, 16);
             down[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_down_2.png"));
-            down[2] = down[2].getSubimage(0, 0, 12, 16);
             left[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_left.png"));
-            left[0] = left[0].getSubimage(0, 0, 12, 16);
             left[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_left_1.png"));
-            left[1] = left[1].getSubimage(0, 0, 12, 16);
             left[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_left_2.png"));
-            left[2] = left[2].getSubimage(0, 0, 12, 16);
             right[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right.png"));
-            right[0] = right[0].getSubimage(0, 0, 12, 16);
             right[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right_1.png"));
-            right[1] = right[1].getSubimage(0, 0, 12, 16);
             right[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right_2.png"));
-            right[2] = right[2].getSubimage(0, 0, 12, 16);
-            removeColor(up[0]);
-            removeColor(up[1]);
-            removeColor(up[2]);
-            removeColor(down[0]);
-            removeColor(down[1]);
-            removeColor(down[2]);
-            removeColor(left[0]);
-            removeColor(left[1]);
-            removeColor(left[2]);
-            removeColor(right[0]);
-            removeColor(right[1]);
-            removeColor(right[2]);
+            for (int i = 0; i < 3; i++) {
+                up[i] = up[i].getSubimage(0, 0, 12, 16);
+                down[i] = down[i].getSubimage(0, 0, 12, 16);
+                right[i] = right[i].getSubimage(0, 0, 12, 16);
+                left[i] = left[i].getSubimage(0, 0, 12, 16);
+                removeColor(up[i]);
+                removeColor(down[i]);
+                removeColor(left[i]);
+                removeColor(right[i]);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void setStartPosition() {
-        mapX = gamePanel.tileSize;
-        mapY = gamePanel.tileSize;
+        mapX = tileSize;
+        mapY = tileSize;
         speed = 4;
         direction = "down";
         isMoving = false;
@@ -111,16 +97,16 @@ public class Player extends MovingEntity {
         gamePanel.checkCollision.checkTile(this);
 
         if (!isCollide && isMoving) {
-            if (direction == "up") mapY -= speed;
-            if (direction == "down") mapY += speed;
-            if (direction == "left") mapX -= speed;
-            if (direction == "right") mapX += speed;
+            if (direction.equals("up")) mapY -= speed;
+            if (direction.equals("down")) mapY += speed;
+            if (direction.equals("left")) mapX -= speed;
+            if (direction.equals("right")) mapX += speed;
         }
 
         if (keyInput.putBomb) {
             if (bomb == null) {
                 bomb = new Bomb(gamePanel);
-                bomb.setCoordinate(bomb.bombTileX * gamePanel.tileSize, bomb.bombTileY * gamePanel.tileSize);
+                bomb.setCoordinate(bomb.bombTileX * tileSize, bomb.bombTileY * tileSize);
                 //gamePanel.level.mapTile[bomb.bombTileX][bomb.bombTileY] = '3';
             }
         }

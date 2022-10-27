@@ -16,6 +16,10 @@ public class ExplosionFlame extends Entity {
     BufferedImage[] horizontalFlame = new BufferedImage[3];
     BufferedImage[] verticalFlame = new BufferedImage[3];
 
+    public int explosionLength = 3;
+    int frame;
+    int flameAnimation;
+
     Grass g;
     public ExplosionFlame(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -57,9 +61,57 @@ public class ExplosionFlame extends Entity {
         }
     }
 
+    public void setCoordinate(int x, int y) {
+        mapX = x;
+        mapY = y;
+    }
+
+    public void draw(Graphics2D g2) {
+        int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
+        int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
+        for (int i = 1; i <= explosionLength; i++) {
+            if (gamePanel.level.mapTile[(screenX + i * tileSize) / tileSize][screenY / tileSize] == ' ') {
+                if (i != explosionLength) {
+                    g2.drawImage(horizontalFlame[flameAnimation], screenX + i * tileSize, screenY, tileSize, tileSize, null);
+                } else g2.drawImage(rightFlame[flameAnimation], screenX + i * tileSize, screenY, tileSize, tileSize, null);
+            } else break;
+        }
+
+        for (int i = 1; i <= explosionLength; i++) {
+            if (gamePanel.level.mapTile[(screenX - i * tileSize) / tileSize][screenY / tileSize] == ' ') {
+                if (i != explosionLength) {
+                    g2.drawImage(horizontalFlame[flameAnimation], screenX - i * tileSize, screenY, tileSize, tileSize, null);
+                } else g2.drawImage(leftFlame[flameAnimation], screenX - i * tileSize, screenY, tileSize, tileSize, null);
+            } else break;
+        }
+
+        for (int i = 1; i <= explosionLength; i++) {
+            if (gamePanel.level.mapTile[screenX / tileSize][(screenY + i * tileSize)/ tileSize] == ' ') {
+                if (i != explosionLength) {
+                    g2.drawImage(verticalFlame[flameAnimation], screenX, screenY + i * tileSize, tileSize, tileSize, null);
+                } else g2.drawImage(downFlame[flameAnimation], screenX, screenY + i * tileSize, tileSize, tileSize, null);
+            } else break;
+        }
+
+        for (int i = 1; i <= explosionLength; i++) {
+            if (gamePanel.level.mapTile[screenX / tileSize][(screenY - i * tileSize)/ tileSize] == ' ') {
+                if (i != explosionLength) {
+                    g2.drawImage(verticalFlame[flameAnimation], screenX, screenY - i * tileSize, tileSize, tileSize, null);
+                } else g2.drawImage(topFlame[flameAnimation], screenX, screenY - i * tileSize, tileSize, tileSize, null);
+            } else break;
+        }
+    }
+
     @Override
     public void update() {
-
+        frame++;
+        if (frame > 12) {
+            flameAnimation++;
+            if (flameAnimation > 2) {
+                flameAnimation = 0;
+            }
+            frame = 0;
+        }
     }
 
     public void removeColor(BufferedImage image) {

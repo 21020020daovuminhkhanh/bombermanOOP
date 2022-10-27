@@ -28,6 +28,6 @@ public class Wall extends Tile{
     public void draw(Graphics2D g2) {
         int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
-        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, screenX, screenY, tileSize, tileSize, null);
     }
 }

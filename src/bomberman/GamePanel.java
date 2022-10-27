@@ -8,9 +8,9 @@ import java.awt.*;
 
 
 public class GamePanel extends JPanel implements Runnable{
-    public final int size = 16;
-    public final int scale = 3;
-    public final int tileSize = size * scale;
+    public static final int size = 16;
+    public static final int scale = 3;
+    public static final int tileSize = size * scale;
     public final int cols = 31;
     public final int rows = 13;
     public final int MAP_WIDTH = cols * tileSize;

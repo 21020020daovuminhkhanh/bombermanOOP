@@ -45,7 +45,7 @@ public class Oneal extends MovingEntity{
     public void draw(Graphics2D g2) {
         int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
-        g2.drawImage(onealImage[onealAnimation], screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(onealImage[onealAnimation], screenX, screenY, tileSize, tileSize, null);
     }
 
     public void removeColor(BufferedImage image) {

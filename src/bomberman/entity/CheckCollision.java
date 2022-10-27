@@ -16,10 +16,10 @@ public class CheckCollision {
         int topMapY = e.mapY + e.hitbox.y;
         int bottomMapY = e.mapY + e.hitbox.y + e.hitbox.height;
 
-        int eLeftCol = leftMapX / gamePanel.tileSize;
-        int eRightCol = rightMapX / gamePanel.tileSize;
-        int eTopRow = topMapY / gamePanel.tileSize;
-        int eBottomRow = bottomMapY / gamePanel.tileSize;
+        int eLeftCol = leftMapX / GamePanel.tileSize;
+        int eRightCol = rightMapX / GamePanel.tileSize;
+        int eTopRow = topMapY / GamePanel.tileSize;
+        int eBottomRow = bottomMapY / GamePanel.tileSize;
 
         char infrontTileNum1, infrontTileNum2;
 

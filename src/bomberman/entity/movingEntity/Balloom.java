@@ -45,7 +45,7 @@ public class Balloom extends MovingEntity{
     public void draw(Graphics2D g2) {
         int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
-        g2.drawImage(BalloomImage[balloomAnimation], screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(BalloomImage[balloomAnimation], screenX, screenY, tileSize, tileSize, null);
     }
     public void removeColor(BufferedImage image) {
         int w = image.getWidth();

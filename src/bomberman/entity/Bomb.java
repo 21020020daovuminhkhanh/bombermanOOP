@@ -24,8 +24,9 @@ public class Bomb extends Entity {
         this.gamePanel = gamePanel;
         g = new Grass(gamePanel);
         explosionFlame = new ExplosionFlame(gamePanel);
-        bombTileX = (gamePanel.player.mapX + gamePanel.tileSize / 2) / gamePanel.tileSize;
-        bombTileY = (gamePanel.player.mapY + gamePanel.tileSize / 2) / gamePanel.tileSize;
+        bombTileX = (gamePanel.player.mapX + tileSize / 2) / tileSize;
+        bombTileY = (gamePanel.player.mapY + tileSize / 2) / tileSize;
+        explosionFlame.setCoordinate(bombTileX * tileSize, bombTileY * tileSize);
         getImage();
     }
 
@@ -58,14 +59,11 @@ public class Bomb extends Entity {
         int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
         if (bombAnimationCycle < maxBombAnimationCycle) {
-            g2.drawImage(bombImage[bombAnimation], screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+            g2.drawImage(bombImage[bombAnimation], screenX, screenY, tileSize, tileSize, null);
         }
         else {
-            g2.drawImage(explosion[bombAnimation], screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
-            g2.drawImage(explosionFlame.topFlame[bombAnimation], screenX, screenY - gamePanel.tileSize, gamePanel.tileSize, gamePanel.tileSize, null);
-            g2.drawImage(explosionFlame.downFlame[bombAnimation], screenX, screenY + 48, gamePanel.tileSize, gamePanel.tileSize, null);
-            g2.drawImage(explosionFlame.rightFlame[bombAnimation], screenX + gamePanel.tileSize, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
-            g2.drawImage(explosionFlame.leftFlame[bombAnimation], screenX - gamePanel.tileSize, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+            g2.drawImage(explosion[bombAnimation], screenX, screenY, tileSize, tileSize, null);
+            explosionFlame.draw(g2);
         }
     }
 
@@ -80,8 +78,8 @@ public class Bomb extends Entity {
             }
             frame = 0;
         }
-        if (bombAnimationCycle > maxBombAnimationCycle) {
-            gamePanel.level.mapTile[bombTileX][bombTileY] = ' ';
+        if (bombAnimationCycle == maxBombAnimationCycle) {
+            explosionFlame.update();
         }
     }
 
