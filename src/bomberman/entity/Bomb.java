@@ -17,7 +17,7 @@ public class Bomb extends Entity {
     public int maxBombAnimationCycle = 4;
     int bombAnimation;
     int frame;
-    ExplosionFlame explosionFlame;
+    public ExplosionFlame explosionFlame;
     BufferedImage[] bombImage = new BufferedImage[3];
     BufferedImage[] explosion = new BufferedImage[3];
     Grass g;

@@ -17,7 +17,6 @@ public class ExplosionFlame extends Entity {
     BufferedImage[] horizontalFlame = new BufferedImage[3];
     BufferedImage[] verticalFlame = new BufferedImage[3];
 
-    public int explosionLength = 1;
     int frame;
     int flameAnimation;
 
@@ -74,9 +73,9 @@ public class ExplosionFlame extends Entity {
         for (int i = 0; i < 4; i++) isSomeBrickExploded[i] = false;
         int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
-        for (int i = 1; i <= explosionLength; i++) {
+        for (int i = 1; i <= gamePanel.player.flameLength; i++) {
             if (gamePanel.level.mapTile[(mapX + i * tileSize) / tileSize][mapY / tileSize] == ' ') {
-                if (i != explosionLength) {
+                if (i != gamePanel.player.flameLength) {
                     g2.drawImage(horizontalFlame[flameAnimation], screenX + i * tileSize, screenY, tileSize, tileSize, null);
                 } else g2.drawImage(rightFlame[flameAnimation], screenX + i * tileSize, screenY, tileSize, tileSize, null);
             } else if (gamePanel.level.mapTile[(mapX + i * tileSize) / tileSize][mapY / tileSize] == '*') {
@@ -87,9 +86,9 @@ public class ExplosionFlame extends Entity {
             } else break;
         }
 
-        for (int i = 1; i <= explosionLength; i++) {
+        for (int i = 1; i <= gamePanel.player.flameLength; i++) {
             if (gamePanel.level.mapTile[(mapX - i * tileSize) / tileSize][mapY / tileSize] == ' ') {
-                if (i != explosionLength) {
+                if (i != gamePanel.player.flameLength) {
                     g2.drawImage(horizontalFlame[flameAnimation], screenX - i * tileSize, screenY, tileSize, tileSize, null);
                 } else g2.drawImage(leftFlame[flameAnimation], screenX - i * tileSize, screenY, tileSize, tileSize, null);
             } else if (gamePanel.level.mapTile[(mapX - i * tileSize) / tileSize][mapY / tileSize] == '*') {
@@ -100,9 +99,9 @@ public class ExplosionFlame extends Entity {
             } else break;
         }
 
-        for (int i = 1; i <= explosionLength; i++) {
+        for (int i = 1; i <= gamePanel.player.flameLength; i++) {
             if (gamePanel.level.mapTile[mapX / tileSize][(mapY + i * tileSize)/ tileSize] == ' ') {
-                if (i != explosionLength) {
+                if (i != gamePanel.player.flameLength) {
                     g2.drawImage(verticalFlame[flameAnimation], screenX, screenY + i * tileSize, tileSize, tileSize, null);
                 } else g2.drawImage(downFlame[flameAnimation], screenX, screenY + i * tileSize, tileSize, tileSize, null);
             } else if (gamePanel.level.mapTile[mapX / tileSize][(mapY + i * tileSize) / tileSize] == '*') {
@@ -113,9 +112,9 @@ public class ExplosionFlame extends Entity {
             } else break;
         }
 
-        for (int i = 1; i <= explosionLength; i++) {
+        for (int i = 1; i <= gamePanel.player.flameLength; i++) {
             if (gamePanel.level.mapTile[mapX / tileSize][(mapY - i * tileSize)/ tileSize] == ' ') {
-                if (i != explosionLength) {
+                if (i != gamePanel.player.flameLength) {
                     g2.drawImage(verticalFlame[flameAnimation], screenX, screenY - i * tileSize, tileSize, tileSize, null);
                 } else g2.drawImage(topFlame[flameAnimation], screenX, screenY - i * tileSize, tileSize, tileSize, null);
             } else if (gamePanel.level.mapTile[mapX / tileSize][(mapY - i * tileSize) / tileSize] == '*') {

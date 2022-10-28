@@ -1,5 +1,6 @@
 package bomberman.entity.tile.item;
 
+import bomberman.entity.movingEntity.Player;
 import bomberman.entity.tile.Tile;
 
 import java.awt.*;

@@ -8,15 +8,18 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.Buffer;
 
 public class Player extends MovingEntity {
     public BufferedImage[] up = new BufferedImage[3];
     public BufferedImage[] down = new BufferedImage[3];
     public BufferedImage[] left = new BufferedImage[3];
     public BufferedImage[] right = new BufferedImage[3];
+    public BufferedImage[] dead = new BufferedImage[3];
     public boolean isMoving;
     public int playerAnimation = 0;
     public Bomb bomb;
+    public int flameLength = 1;
 
     //Toa do tren man hinh.
     public int screenX;
@@ -46,15 +49,20 @@ public class Player extends MovingEntity {
             right[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right.png"));
             right[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right_1.png"));
             right[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_right_2.png"));
+            dead[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_dead1.png"));
+            dead[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_dead2.png"));
+            dead[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/player_dead3.png"));
             for (int i = 0; i < 3; i++) {
                 up[i] = up[i].getSubimage(0, 0, 12, 16);
                 down[i] = down[i].getSubimage(0, 0, 12, 16);
                 right[i] = right[i].getSubimage(0, 0, 12, 16);
                 left[i] = left[i].getSubimage(0, 0, 12, 16);
+                dead[i] = dead[i].getSubimage(0, 0,12, 16);
                 removeColor(up[i]);
                 removeColor(down[i]);
                 removeColor(left[i]);
                 removeColor(right[i]);
+                removeColor(dead[i]);
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -23,9 +23,6 @@ public class GamePanel extends JPanel implements Runnable{
     public CheckCollision checkCollision = new CheckCollision(this);
     public Level level = new Level(this);
 
-    int x1 = 100;
-    int y1 = 100;
-
     public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
