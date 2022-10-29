@@ -8,7 +8,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.Buffer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends MovingEntity {
     public BufferedImage[] up = new BufferedImage[3];
@@ -18,7 +19,8 @@ public class Player extends MovingEntity {
     public BufferedImage[] dead = new BufferedImage[3];
     public boolean isMoving;
     public int playerAnimation = 0;
-    public Bomb bomb;
+    public List<Bomb> bombs = new ArrayList<>();
+    public int bombAmount = 1;
     public int flameLength = 1;
 
     //Toa do tren man hinh.
@@ -72,7 +74,7 @@ public class Player extends MovingEntity {
     public void setStartPosition() {
         mapX = tileSize;
         mapY = tileSize;
-        speed = 4;
+        speed = 3;
         direction = "down";
         isMoving = false;
     }
@@ -111,17 +113,25 @@ public class Player extends MovingEntity {
             if (direction.equals("right")) mapX += speed;
         }
 
+        boolean flag = true;
         if (keyInput.putBomb) {
-            if (bomb == null) {
-                bomb = new Bomb(gamePanel);
+            for (int i = 0; i < bombs.size(); i++) {
+                if (bombs.get(i).bombTileX == (this.mapX + tileSize / 2) / tileSize && bombs.get(i).bombTileY == (this.mapX + tileSize / 2) / tileSize ) {
+                    flag = false;
+                }
+            }
+            if (flag && bombs.size() < bombAmount) {
+                Bomb bomb = new Bomb(gamePanel);
                 bomb.setCoordinate(bomb.bombTileX * tileSize, bomb.bombTileY * tileSize);
+                bombs.add(bomb);
             }
         }
-        if (bomb != null) {
-            bomb.update();
-        }
-        if (bomb != null && bomb.bombAnimationCycle > bomb.maxBombAnimationCycle) {
-            bomb = null;
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).update();
+            if (bombs.get(i).bombAnimationCycle > bombs.get(i).maxBombAnimationCycle) {
+                bombs.remove(i);
+                i--;
+            }
         }
 
         if (isMoving) {
@@ -157,10 +167,11 @@ public class Player extends MovingEntity {
                 break;
         }
 
-        if (bomb != null) {
+        for (Bomb bomb : bombs) {
             bomb.draw(g2);
         }
-        g2.drawImage(image, screenX, screenY, image.getWidth() * gamePanel.scale, image.getHeight() * gamePanel.scale, null);
+
+        g2.drawImage(image, screenX, screenY, image.getWidth() * GamePanel.scale, image.getHeight() * GamePanel.scale, null);
     }
 
     public void setCoordinate(int x, int y) {
