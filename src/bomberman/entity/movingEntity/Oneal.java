@@ -82,8 +82,8 @@ public class Oneal extends MovingEntity{
 
     public void draw(Graphics2D g2) {
         BufferedImage image = onealRightImage[onealAnimation];
-        int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
-        int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
+        int screenX = mapX - gamePanel.board.player.mapX + gamePanel.board.player.screenX;
+        int screenY = mapY - gamePanel.board.player.mapY + gamePanel.board.player.screenY;
         if (direction.equals("right")) image = onealRightImage[onealAnimation];
         if (direction.equals("left")) image = onealLeftImage[onealAnimation];
         g2.drawImage(image, screenX, screenY, tileSize, tileSize, null);

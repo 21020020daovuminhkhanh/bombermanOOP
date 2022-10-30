@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
 public class KeyInput implements KeyListener {
-    public boolean goUp, goDown, goLeft, goRight, putBomb;
+    public boolean goUp, goDown, goLeft, goRight, putBomb, reset, dead;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -33,6 +33,14 @@ public class KeyInput implements KeyListener {
         if (key == KeyEvent.VK_SPACE) {
             putBomb = true;
         }
+
+        if (key == KeyEvent.VK_J) {
+            reset = true;
+        }
+
+        if (key == KeyEvent.VK_K) {
+            dead = true;
+        }
     }
 
     @Override
@@ -57,6 +65,12 @@ public class KeyInput implements KeyListener {
 
         if (key == KeyEvent.VK_SPACE) {
             putBomb = false;
+        }
+        if (key == KeyEvent.VK_J) {
+            reset = false;
+        }
+        if (key == KeyEvent.VK_K) {
+            dead = false;
         }
     }
 }

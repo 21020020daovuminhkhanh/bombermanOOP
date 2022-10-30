@@ -27,8 +27,8 @@ public class Portal extends Tile{
     }
 
     public void draw(Graphics2D g2) {
-        int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
-        int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
+        int screenX = mapX - gamePanel.board.player.mapX + gamePanel.board.player.screenX;
+        int screenY = mapY - gamePanel.board.player.mapY + gamePanel.board.player.screenY;
         g2.drawImage(image, screenX, screenY, tileSize, tileSize, null);
     }
 

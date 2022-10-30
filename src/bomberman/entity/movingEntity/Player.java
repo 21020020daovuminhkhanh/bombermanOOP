@@ -20,8 +20,9 @@ public class Player extends MovingEntity {
     public boolean isMoving;
     public int playerAnimation = 0;
     public List<Bomb> bombs = new ArrayList<>();
-    public int bombAmount = 1;
-    public int flameLength = 1;
+    public int bombAmount;
+    public int flameLength;
+    public boolean reset;
 
     //Toa do tren man hinh.
     public int screenX;
@@ -72,8 +73,8 @@ public class Player extends MovingEntity {
     }
 
     public void setStartPosition() {
-        mapX = tileSize;
-        mapY = tileSize;
+        bombAmount = 1;
+        flameLength = 1;
         speed = 3;
         direction = "down";
         isMoving = false;
@@ -134,6 +135,19 @@ public class Player extends MovingEntity {
             }
         }
 
+        if (keyInput.dead) {
+            frame++;
+            if (frame > 8) {
+                frame = 0;
+                playerAnimation++;
+                if (playerAnimation > 2) {
+                    reset = true;
+                    playerAnimation = 0;
+                }
+            }
+            return;
+        }
+
         if (isMoving) {
             frame++;
             if (frame > 8) {
@@ -165,6 +179,9 @@ public class Player extends MovingEntity {
             case "right":
                 image = right[playerAnimation];
                 break;
+        }
+        if (keyInput.dead) {
+            image = dead[playerAnimation];
         }
 
         for (Bomb bomb : bombs) {

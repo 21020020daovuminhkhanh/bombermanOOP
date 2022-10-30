@@ -25,8 +25,8 @@ public class Bomb extends Entity {
         this.gamePanel = gamePanel;
         g = new Grass(gamePanel);
         explosionFlame = new ExplosionFlame(gamePanel);
-        bombTileX = (gamePanel.player.mapX + tileSize / 2) / tileSize;
-        bombTileY = (gamePanel.player.mapY + tileSize / 2) / tileSize;
+        bombTileX = (gamePanel.board.player.mapX + tileSize / 2) / tileSize;
+        bombTileY = (gamePanel.board.player.mapY + tileSize / 2) / tileSize;
         explosionFlame.setCoordinate(bombTileX * tileSize, bombTileY * tileSize);
         getImage();
     }
@@ -57,8 +57,8 @@ public class Bomb extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-        int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
-        int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
+        int screenX = mapX - gamePanel.board.player.mapX + gamePanel.board.player.screenX;
+        int screenY = mapY - gamePanel.board.player.mapY + gamePanel.board.player.screenY;
         if (bombAnimationCycle < maxBombAnimationCycle) {
             g2.drawImage(bombImage[bombAnimation], screenX, screenY, tileSize, tileSize, null);
         }

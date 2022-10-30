@@ -3,6 +3,7 @@ package bomberman;
 import bomberman.entity.movingEntity.Balloom;
 import bomberman.entity.movingEntity.MovingEntity;
 import bomberman.entity.movingEntity.Oneal;
+import bomberman.entity.movingEntity.Player;
 import bomberman.entity.tile.*;
 import bomberman.entity.tile.item.BombItem;
 import bomberman.entity.tile.item.FlameItem;
@@ -28,13 +29,14 @@ public class Level {
     Item bombItem;
     Item speedItem;
     Item flameItem;
-    Board board;
+    Player player;
     
     public Level(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         loadMapTile();
 
-        board = new Board(gamePanel);
+        player = new Player(gamePanel, gamePanel.keyInput);
+        gamePanel.board.addPlayer(player);
 
         wall = new Wall(gamePanel);
         grass = new Grass(gamePanel);
@@ -53,7 +55,7 @@ public class Level {
 
             String line = new String();
             line = br.readLine();
-            String levelInfo[] = line.split(" ");
+            String[] levelInfo = line.split(" ");
             level = Integer.parseInt(levelInfo[0]);
             height = Integer.parseInt(levelInfo[1]);
             width = Integer.parseInt(levelInfo[2]);
@@ -72,8 +74,13 @@ public class Level {
         }
     }
 
+    public void resetGame() {
+        gamePanel.board.enemies.clear();
+        loadMapTile();
+    }
+
     public void update() {
-        board.update();
+
     }
 
     public void draw(Graphics2D g2) {
@@ -104,14 +111,14 @@ public class Level {
                         mapTile[i][j] = ' ';
                         MovingEntity balloom = new Balloom(gamePanel);
                         balloom.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
-                        board.addEnemies(balloom);
+                        gamePanel.board.addEnemies(balloom);
                         break;
 
                     case '2':
                         mapTile[i][j] = ' ';
                         MovingEntity oneal = new Oneal(gamePanel);
                         oneal.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
-                        board.addEnemies(oneal);
+                        gamePanel.board.addEnemies(oneal);
                         break;
 
                     case 'b':
@@ -128,9 +135,13 @@ public class Level {
                         speedItem.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
                         speedItem.draw(g2);
                         break;
+
+                    case 'p':
+                        mapTile[i][j] = ' ';
+                        gamePanel.board.player.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
+                        break;
                 }
             }
         }
-        board.draw(g2);
     }
 }

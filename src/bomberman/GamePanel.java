@@ -19,8 +19,9 @@ public class GamePanel extends JPanel implements Runnable{
     public final int SCREEN_HEIGHT = rows * tileSize;
     KeyInput keyInput = new KeyInput();
     Thread thread;
-    public Player player = new Player(this, keyInput);
+    //public Player player = new Player(this, keyInput);
     public CheckCollision checkCollision = new CheckCollision(this);
+    public Board board = new Board(this);
     public Level level = new Level(this);
 
     public GamePanel() {
@@ -40,9 +41,14 @@ public class GamePanel extends JPanel implements Runnable{
     public void run() {
         while (thread != null) {
             try {
+                if (keyInput.reset || board.player.reset) {
+                    level.resetGame();
+                    board.player.setStartPosition();
+                    board.player.reset = false;
+                }
                 update();
                 repaint();
-                thread.sleep(1000/60);  // 60fps
+                Thread.sleep(1000/60);  // 60fps
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -50,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-        player.update();
+        board.update();
         level.update();
     }
 
@@ -60,7 +66,8 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
 
         level.draw(g2);
-        player.draw(g2);
+        board.draw(g2);
+        //board.player.draw(g2);
 
         g2.dispose();
     }
