@@ -6,12 +6,18 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 public class Oneal extends MovingEntity{
-    BufferedImage[] onealImage = new BufferedImage[3];
+    BufferedImage[] onealRightImage = new BufferedImage[3];
+    BufferedImage[] onealLeftImage = new BufferedImage[3];
     public int onealAnimation = 0;
+    Random random = new Random();
     public Oneal(GamePanel gp) {
         gamePanel = gp;
+        speed = 3;
+        direction = "right";
+        hitbox = new Rectangle(3, 3, 42, 42);
         getImage();
     }
 
@@ -22,15 +28,37 @@ public class Oneal extends MovingEntity{
 
     public void getImage() {
         try {
-            onealImage[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right1.png"));
-            onealImage[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right2.png"));
-            onealImage[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right3.png"));
-            removeColor(onealImage[0]);
-            removeColor(onealImage[1]);
-            removeColor(onealImage[2]);
+            onealRightImage[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right1.png"));
+            onealRightImage[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right2.png"));
+            onealRightImage[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_right3.png"));
+            onealLeftImage[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_left1.png"));
+            onealLeftImage[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_left2.png"));
+            onealLeftImage[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_left3.png"));
+            for (int i = 0; i < 3; i++) {
+                removeColor(onealRightImage[i]);
+                removeColor(onealLeftImage[i]);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void nextDirection() {
+        int r = random.nextInt(4);
+        switch (r) {
+            case 0:
+                direction = "up";
+                break;
+            case 1:
+                direction = "down";
+                break;
+            case 2:
+                direction = "left";
+                break;
+            case 3:
+                direction = "right";
+                break;
+        };
     }
 
     public void update() {
@@ -40,12 +68,25 @@ public class Oneal extends MovingEntity{
             onealAnimation++;
             if (onealAnimation > 2) onealAnimation = 0;
         }
+
+        isCollide = false;
+        gamePanel.checkCollision.checkTile(this);
+        if (isCollide) nextDirection();
+        else {
+            if (direction.equals("up")) mapY -= speed;
+            if (direction.equals("down")) mapY += speed;
+            if (direction.equals("left")) mapX -= speed;
+            if (direction.equals("right")) mapX += speed;
+        }
     }
 
     public void draw(Graphics2D g2) {
+        BufferedImage image = onealRightImage[onealAnimation];
         int screenX = mapX - gamePanel.player.mapX + gamePanel.player.screenX;
         int screenY = mapY - gamePanel.player.mapY + gamePanel.player.screenY;
-        g2.drawImage(onealImage[onealAnimation], screenX, screenY, tileSize, tileSize, null);
+        if (direction.equals("right")) image = onealRightImage[onealAnimation];
+        if (direction.equals("left")) image = onealLeftImage[onealAnimation];
+        g2.drawImage(image, screenX, screenY, tileSize, tileSize, null);
     }
 
     public void removeColor(BufferedImage image) {

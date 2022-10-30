@@ -24,24 +24,22 @@ public class Level {
     public Tile grass;
     public Tile brick;
     public Tile portal;
-    MovingEntity balloom;
-    MovingEntity oneal;
 
     Item bombItem;
     Item speedItem;
     Item flameItem;
+    Board board;
     
     public Level(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         loadMapTile();
 
+        board = new Board(gamePanel);
+
         wall = new Wall(gamePanel);
         grass = new Grass(gamePanel);
         brick = new Brick(gamePanel);
         portal = new Portal(gamePanel);
-
-        balloom = new Balloom(gamePanel);
-        oneal = new Oneal(gamePanel);
 
         bombItem = new BombItem(gamePanel);
         flameItem = new FlameItem(gamePanel);
@@ -75,8 +73,7 @@ public class Level {
     }
 
     public void update() {
-        balloom.update();
-        oneal.update();
+        board.update();
     }
 
     public void draw(Graphics2D g2) {
@@ -104,13 +101,17 @@ public class Level {
                         break;
 
                     case '1':
+                        mapTile[i][j] = ' ';
+                        MovingEntity balloom = new Balloom(gamePanel);
                         balloom.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
-                        balloom.draw(g2);
+                        board.addEnemies(balloom);
                         break;
 
                     case '2':
+                        mapTile[i][j] = ' ';
+                        MovingEntity oneal = new Oneal(gamePanel);
                         oneal.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
-                        oneal.draw(g2);
+                        board.addEnemies(oneal);
                         break;
 
                     case 'b':
@@ -130,5 +131,6 @@ public class Level {
                 }
             }
         }
+        board.draw(g2);
     }
 }
