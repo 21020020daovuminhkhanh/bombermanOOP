@@ -19,11 +19,11 @@ public class Board {
         this.gamePanel = gamePanel;
     }
     public void draw(Graphics2D g2) {
-        for (MovingEntity enemy : enemies) {
-            enemy.draw(g2);
-        }
         for(Bomb bomb: bombs) {
             bomb.draw(g2);
+        }
+        for (MovingEntity enemy : enemies) {
+            enemy.draw(g2);
         }
         player.draw(g2);
     }
@@ -37,7 +37,15 @@ public class Board {
             if (bombs.get(i).bombAnimationCycle == bombs.get(i).maxBombAnimationCycle) {
                 if (player.collideWithExplosion(bombs.get(i))) {
                     player.kill();
-                    System.out.println("die");
+                }
+                for (int j = 0; j < enemies.size(); j++) {
+                    if (enemies.get(j).collideWithExplosion(bombs.get(i))) {
+                        enemies.get(j).isLiving = false;
+                        if (enemies.get(j).getAnimationIndex() == 3) {
+                            removeEnemies(enemies.get(j));
+                            j--;
+                        }
+                    }
                 }
             }
             if (bombs.get(i).bombAnimationCycle > bombs.get(i).maxBombAnimationCycle) {
@@ -48,7 +56,6 @@ public class Board {
         for (MovingEntity enemy : enemies) {
             if (player.collideWithEnemy(enemy)) {
                 player.kill();
-                System.out.println("die");
             }
         }
         player.update();
@@ -71,5 +78,13 @@ public class Board {
 
     public void addEnemies(MovingEntity e) {
         enemies.add(e);
+    }
+
+    public void removeEnemies(MovingEntity e) {
+        enemies.remove(e);
+    }
+
+    public int countEnemies() {
+        return enemies.size();
     }
 }

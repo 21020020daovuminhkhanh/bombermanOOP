@@ -1,6 +1,7 @@
 package bomberman.entity.movingEntity;
 
 import bomberman.GamePanel;
+import bomberman.entity.Bomb;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,7 +12,9 @@ import java.util.Random;
 public class Oneal extends MovingEntity{
     BufferedImage[] onealRightImage = new BufferedImage[3];
     BufferedImage[] onealLeftImage = new BufferedImage[3];
+    BufferedImage[] onealDead = new BufferedImage[4];
     public int onealAnimation = 0;
+    public int onealDeadAnimation = 0;
     Random random = new Random();
     public Oneal(GamePanel gp) {
         gamePanel = gp;
@@ -34,10 +37,16 @@ public class Oneal extends MovingEntity{
             onealLeftImage[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_left1.png"));
             onealLeftImage[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_left2.png"));
             onealLeftImage[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_left3.png"));
+            onealDead[0] = ImageIO.read(getClass().getResourceAsStream("/sprites/oneal_dead.png"));
+            onealDead[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/mob_dead1.png"));
+            onealDead[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/mob_dead2.png"));
+            onealDead[3] = ImageIO.read(getClass().getResourceAsStream("/sprites/mob_dead3.png"));
             for (int i = 0; i < 3; i++) {
                 removeColor(onealRightImage[i]);
                 removeColor(onealLeftImage[i]);
+                removeColor(onealDead[i]);
             }
+            removeColor(onealDead[3]);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,6 +71,18 @@ public class Oneal extends MovingEntity{
     }
 
     public void update() {
+        if (!isLiving) {
+            frame++;
+            if (frame > 12) {
+                frame = 0;
+                onealDeadAnimation++;
+                if (onealDeadAnimation > 3) {
+                    onealDeadAnimation = 3;
+                }
+            }
+            return;
+        }
+
         frame++;
         if (frame > 8) {
             frame = 0;
@@ -80,13 +101,44 @@ public class Oneal extends MovingEntity{
         }
     }
 
+
+
     public void draw(Graphics2D g2) {
         BufferedImage image = onealRightImage[onealAnimation];
         int screenX = mapX - gamePanel.board.player.mapX + gamePanel.board.player.screenX;
         int screenY = mapY - gamePanel.board.player.mapY + gamePanel.board.player.screenY;
-        if (direction.equals("right")) image = onealRightImage[onealAnimation];
-        if (direction.equals("left")) image = onealLeftImage[onealAnimation];
+        if (!isLiving) image = onealDead[onealDeadAnimation];
+        else if (direction.equals("right")) image = onealRightImage[onealAnimation];
+        else if (direction.equals("left")) image = onealLeftImage[onealAnimation];
         g2.drawImage(image, screenX, screenY, tileSize, tileSize, null);
+    }
+
+    public boolean collideWithExplosion(Bomb b) {
+        int leftEnemyMapX = mapX + hitbox.x;
+        int rightEnemyMapX = mapX + hitbox.x + hitbox.width;
+        int topEnemyMapY = mapY + hitbox.y;
+        int bottomEnemyMapY = mapY + hitbox.y + hitbox.height;
+
+        int leftVerticalMapX = b.mapX;
+        int rightVerticalMapX = b.mapX + tileSize;
+        int topVerticalMapY = b.mapY - gamePanel.board.player.flameLength * tileSize;
+        int bottomVerticalMapY = b.mapY + (gamePanel.board.player.flameLength + 1) * tileSize;
+
+        int leftHorizontalMapX = b.mapX - gamePanel.board.player.flameLength * tileSize;
+        int rightHorizontalMapX = b.mapX + (gamePanel.board.player.flameLength + 1) * tileSize;
+        int topHorizontalMapY = b.mapY;
+        int bottomHorizontalMapY = b.mapY + tileSize;
+
+        if (leftEnemyMapX <= rightVerticalMapX && rightEnemyMapX >= leftVerticalMapX &&
+                topEnemyMapY <= bottomVerticalMapY && bottomEnemyMapY >= topVerticalMapY) return true;
+        if (leftEnemyMapX <= rightHorizontalMapX && rightEnemyMapX >= leftHorizontalMapX &&
+                topEnemyMapY <= bottomHorizontalMapY && bottomEnemyMapY >= topHorizontalMapY) return true;
+        return false;
+    }
+
+    @Override
+    public int getAnimationIndex() {
+        return onealDeadAnimation;
     }
 
     public void removeColor(BufferedImage image) {

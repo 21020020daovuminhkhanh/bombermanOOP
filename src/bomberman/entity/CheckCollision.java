@@ -28,7 +28,15 @@ public class CheckCollision {
                 eTopRow = (topMapY - e.speed) / GamePanel.tileSize;
                 infrontTileNum1 = gamePanel.level.mapTile[eLeftCol][eTopRow];
                 infrontTileNum2 = gamePanel.level.mapTile[eRightCol][eTopRow];
-                if (infrontTileNum1 == 'b') {
+                if (infrontTileNum1 == 'x') {
+                    e.isCollide = true;
+                    if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
+                }
+                else if (infrontTileNum2 == 'x') {
+                    e.isCollide = true;
+                    if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
+                }
+                else if (infrontTileNum1 == 'b') {
                     gamePanel.level.mapTile[eLeftCol][eTopRow] = ' ';
                     gamePanel.board.player.bombAmount++;
                 }
@@ -60,7 +68,15 @@ public class CheckCollision {
                 eBottomRow = (bottomMapY + e.speed) / GamePanel.tileSize;
                 infrontTileNum1 = gamePanel.level.mapTile[eLeftCol][eBottomRow];
                 infrontTileNum2 = gamePanel.level.mapTile[eRightCol][eBottomRow];
-                if (infrontTileNum1 == 'b') {
+                if (infrontTileNum1 == 'x') {
+                    e.isCollide = true;
+                    if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
+                }
+                else if (infrontTileNum2 == 'x') {
+                    e.isCollide = true;
+                    if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
+                }
+                else if (infrontTileNum1 == 'b') {
                     gamePanel.level.mapTile[eLeftCol][eBottomRow] = ' ';
                     gamePanel.board.player.bombAmount += 1;
                 }
@@ -92,7 +108,15 @@ public class CheckCollision {
                 eLeftCol = (leftMapX - e.speed) / GamePanel.tileSize;
                 infrontTileNum1 = gamePanel.level.mapTile[eLeftCol][eTopRow];
                 infrontTileNum2 = gamePanel.level.mapTile[eLeftCol][eBottomRow];
-                if (infrontTileNum1 == 'b') {
+                if (infrontTileNum1 == 'x') {
+                    e.isCollide = true;
+                    if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
+                }
+                else if (infrontTileNum2 == 'x') {
+                    e.isCollide = true;
+                    if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
+                }
+                else if (infrontTileNum1 == 'b') {
                     gamePanel.level.mapTile[eLeftCol][eTopRow] = ' ';
                     gamePanel.board.player.bombAmount += 1;
                 }
@@ -124,7 +148,15 @@ public class CheckCollision {
                 eRightCol = (rightMapX + e.speed) / GamePanel.tileSize;
                 infrontTileNum1 = gamePanel.level.mapTile[eRightCol][eBottomRow];
                 infrontTileNum2 = gamePanel.level.mapTile[eRightCol][eTopRow];
-                if (infrontTileNum1 == 'b') {
+                if (infrontTileNum1 == 'x') {
+                    e.isCollide = true;
+                    if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
+                }
+                else if (infrontTileNum2 == 'x') {
+                    e.isCollide = true;
+                    if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
+                }
+                else if (infrontTileNum1 == 'b') {
                     gamePanel.level.mapTile[eRightCol][eBottomRow] = ' ';
                     gamePanel.board.player.bombAmount++;
                 }

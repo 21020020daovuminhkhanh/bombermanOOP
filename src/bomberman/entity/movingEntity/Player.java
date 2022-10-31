@@ -20,7 +20,6 @@ public class Player extends MovingEntity {
     public int bombAmount;
     public int flameLength;
     public boolean reset;
-    public boolean isLiving = true;
 
     //Board board;
 
@@ -126,7 +125,7 @@ public class Player extends MovingEntity {
                 playerAnimation++;
                 if (playerAnimation > 2) {
                     reset = true;
-                    playerAnimation = 0;
+                    playerAnimation = 2;
                 }
             }
             return;

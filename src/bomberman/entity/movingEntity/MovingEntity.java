@@ -1,5 +1,6 @@
 package bomberman.entity.movingEntity;
 
+import bomberman.entity.Bomb;
 import bomberman.entity.Entity;
 import bomberman.entity.tile.Grass;
 import bomberman.KeyInput;
@@ -13,6 +14,7 @@ public abstract class MovingEntity extends Entity {
     public Grass g = new Grass(gamePanel);
     public Rectangle hitbox;
     public boolean isCollide;
+    public boolean isLiving = true;
     public int frame = 0;
 
     public abstract void setCoordinate(int x, int y);
@@ -21,5 +23,10 @@ public abstract class MovingEntity extends Entity {
 
     public void update() {
 
+    }
+    public abstract boolean collideWithExplosion(Bomb b);
+
+    public int getAnimationIndex() {
+        return 0;
     }
 }
