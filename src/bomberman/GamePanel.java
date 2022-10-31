@@ -41,7 +41,8 @@ public class GamePanel extends JPanel implements Runnable{
     public void run() {
         while (thread != null) {
             try {
-                if (keyInput.reset || board.player.reset) {
+                if (board.player.reset) {
+                    Thread.sleep(1000);
                     level.resetGame();
                     board.player.setStartPosition();
                     board.player.reset = false;

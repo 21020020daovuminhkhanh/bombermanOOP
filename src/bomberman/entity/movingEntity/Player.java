@@ -8,8 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player extends MovingEntity {
     public BufferedImage[] up = new BufferedImage[3];
@@ -19,10 +17,12 @@ public class Player extends MovingEntity {
     public BufferedImage[] dead = new BufferedImage[3];
     public boolean isMoving;
     public int playerAnimation = 0;
-    public List<Bomb> bombs = new ArrayList<>();
     public int bombAmount;
     public int flameLength;
     public boolean reset;
+    public boolean isLiving = true;
+
+    //Board board;
 
     //Toa do tren man hinh.
     public int screenX;
@@ -78,6 +78,7 @@ public class Player extends MovingEntity {
         speed = 3;
         direction = "down";
         isMoving = false;
+        isLiving = true;
     }
 
     public void update() {
@@ -114,28 +115,11 @@ public class Player extends MovingEntity {
             if (direction.equals("right")) mapX += speed;
         }
 
-        boolean flag = true;
         if (keyInput.putBomb) {
-            for (int i = 0; i < bombs.size(); i++) {
-                if (bombs.get(i).bombTileX == (this.mapX + tileSize / 2) / tileSize && bombs.get(i).bombTileY == (this.mapX + tileSize / 2) / tileSize ) {
-                    flag = false;
-                }
-            }
-            if (flag && bombs.size() < bombAmount) {
-                Bomb bomb = new Bomb(gamePanel);
-                bomb.setCoordinate(bomb.bombTileX * tileSize, bomb.bombTileY * tileSize);
-                bombs.add(bomb);
-            }
-        }
-        for (int i = 0; i < bombs.size(); i++) {
-            bombs.get(i).update();
-            if (bombs.get(i).bombAnimationCycle > bombs.get(i).maxBombAnimationCycle) {
-                bombs.remove(i);
-                i--;
-            }
+            createBombAt(tileSize * getPlayerTileX(), tileSize * getPlayerTileY());
         }
 
-        if (keyInput.dead) {
+        if (!isLiving) {
             frame++;
             if (frame > 8) {
                 frame = 0;
@@ -180,20 +164,74 @@ public class Player extends MovingEntity {
                 image = right[playerAnimation];
                 break;
         }
-        if (keyInput.dead) {
+        if (!isLiving) {
             image = dead[playerAnimation];
-        }
-
-        for (Bomb bomb : bombs) {
-            bomb.draw(g2);
         }
 
         g2.drawImage(image, screenX, screenY, image.getWidth() * GamePanel.scale, image.getHeight() * GamePanel.scale, null);
     }
 
+    public void createBombAt(int x, int y) {
+        if (gamePanel.board.getBombAt(x, y) == null) {
+            Bomb bomb = new Bomb(gamePanel);
+            bomb.setCoordinate(x, y);
+            gamePanel.board.addBomb(bomb);
+        }
+    }
+
     public void setCoordinate(int x, int y) {
         this.mapX = x;
         this.mapY = y;
+    }
+
+    public int getPlayerTileX() {
+        return (mapX + tileSize / 2) / tileSize;
+    }
+    public int getPlayerTileY() {
+        return (mapY + tileSize / 2) / tileSize;
+    }
+
+    public void kill() {
+        isLiving = false;
+    }
+
+    public boolean collideWithEnemy(MovingEntity e) {
+        int leftPlayerMapX = mapX + hitbox.x;
+        int rightPlayerMapX = mapX + hitbox.x + hitbox.width;
+        int topPlayerMapY = mapY + hitbox.y;
+        int bottomPlayerMapY = mapY + hitbox.y + hitbox.height;
+
+        int leftEnemyMapX = e.mapX + e.hitbox.x;
+        int rightEnemyMapX = e.mapX + e.hitbox.x + e.hitbox.width;
+        int topEnemyMapY = e.mapY + e.hitbox.y;
+        int bottomEnemyMapY = e.mapY + e.hitbox.y + e.hitbox.height;
+
+        if (leftPlayerMapX <= rightEnemyMapX && rightPlayerMapX >= leftEnemyMapX &&
+            topPlayerMapY <= bottomEnemyMapY && bottomPlayerMapY >= topEnemyMapY) return true;
+        else return false;
+    }
+
+    public boolean collideWithExplosion(Bomb b) {
+        int leftPlayerMapX = mapX + hitbox.x;
+        int rightPlayerMapX = mapX + hitbox.x + hitbox.width;
+        int topPlayerMapY = mapY + hitbox.y;
+        int bottomPlayerMapY = mapY + hitbox.y + hitbox.height;
+
+        int leftVerticalMapX = b.mapX;
+        int rightVerticalMapX = b.mapX + tileSize;
+        int topVerticalMapY = b.mapY - flameLength * tileSize;
+        int bottomVerticalMapY = b.mapY + (flameLength + 1) * tileSize;
+
+        int leftHorizontalMapX = b.mapX - flameLength * tileSize;
+        int rightHorizontalMapX = b.mapX + (flameLength + 1) * tileSize;
+        int topHorizontalMapY = b.mapY;
+        int bottomHorizontalMapY = b.mapY + tileSize;
+
+        if (leftPlayerMapX <= rightVerticalMapX && rightPlayerMapX >= leftVerticalMapX &&
+                topPlayerMapY <= bottomVerticalMapY && bottomPlayerMapY >= topVerticalMapY) return true;
+        if (leftPlayerMapX <= rightHorizontalMapX && rightPlayerMapX >= leftHorizontalMapX &&
+                topPlayerMapY <= bottomHorizontalMapY && bottomPlayerMapY >= topHorizontalMapY) return true;
+        return false;
     }
 
     //xoa mau hong thay bang mau cua grass.

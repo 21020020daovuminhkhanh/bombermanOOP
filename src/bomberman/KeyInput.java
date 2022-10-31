@@ -66,11 +66,5 @@ public class KeyInput implements KeyListener {
         if (key == KeyEvent.VK_SPACE) {
             putBomb = false;
         }
-        if (key == KeyEvent.VK_J) {
-            reset = false;
-        }
-        if (key == KeyEvent.VK_K) {
-            dead = false;
-        }
     }
 }
