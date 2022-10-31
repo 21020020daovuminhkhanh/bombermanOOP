@@ -36,30 +36,6 @@ public class CheckCollision {
                     e.isCollide = true;
                     if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
                 }
-                else if (infrontTileNum1 == 'b') {
-                    gamePanel.level.mapTile[eLeftCol][eTopRow] = ' ';
-                    gamePanel.board.player.bombAmount++;
-                }
-                else if (infrontTileNum2 == 'b') {
-                    gamePanel.level.mapTile[eRightCol][eTopRow] = ' ';
-                    gamePanel.board.player.bombAmount++;
-                }
-                else if (infrontTileNum1 == 's') {
-                    gamePanel.level.mapTile[eLeftCol][eTopRow] = ' ';
-                    gamePanel.board.player.speed++;
-                }
-                else if (infrontTileNum2 == 's') {
-                    gamePanel.level.mapTile[eRightCol][eTopRow] = ' ';
-                    gamePanel.board.player.speed++;
-                }
-                else if (infrontTileNum1 == 'f') {
-                    gamePanel.level.mapTile[eLeftCol][eTopRow] = ' ';
-                    gamePanel.board.player.flameLength++;
-                }
-                else if (infrontTileNum2 == 'f') {
-                    gamePanel.level.mapTile[eRightCol][eTopRow] = ' ';
-                    gamePanel.board.player.flameLength++;
-                }
                 else if (infrontTileNum1 != ' ' || infrontTileNum2 != ' ') {
                     e.isCollide = true;
                 }
@@ -75,30 +51,6 @@ public class CheckCollision {
                 else if (infrontTileNum2 == 'x') {
                     e.isCollide = true;
                     if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
-                }
-                else if (infrontTileNum1 == 'b') {
-                    gamePanel.level.mapTile[eLeftCol][eBottomRow] = ' ';
-                    gamePanel.board.player.bombAmount += 1;
-                }
-                else if (infrontTileNum2 == 'b') {
-                    gamePanel.level.mapTile[eRightCol][eBottomRow] = ' ';
-                    gamePanel.board.player.bombAmount += 1;
-                }
-                else if (infrontTileNum1 == 's') {
-                    gamePanel.level.mapTile[eLeftCol][eBottomRow] = ' ';
-                    gamePanel.board.player.speed += 1;
-                }
-                else if (infrontTileNum2 == 's') {
-                    gamePanel.level.mapTile[eRightCol][eBottomRow] = ' ';
-                    gamePanel.board.player.speed += 1;
-                }
-                else if (infrontTileNum1 == 'f') {
-                    gamePanel.level.mapTile[eLeftCol][eBottomRow] = ' ';
-                    gamePanel.board.player.flameLength++;
-                }
-                else if (infrontTileNum2 == 'f') {
-                    gamePanel.level.mapTile[eRightCol][eBottomRow] = ' ';
-                    gamePanel.board.player.flameLength++;
                 }
                 else if (infrontTileNum1 != ' ' || infrontTileNum2 != ' ') {
                     e.isCollide = true;
@@ -116,30 +68,6 @@ public class CheckCollision {
                     e.isCollide = true;
                     if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
                 }
-                else if (infrontTileNum1 == 'b') {
-                    gamePanel.level.mapTile[eLeftCol][eTopRow] = ' ';
-                    gamePanel.board.player.bombAmount += 1;
-                }
-                else if (infrontTileNum2 == 'b') {
-                    gamePanel.level.mapTile[eLeftCol][eBottomRow] = ' ';
-                    gamePanel.board.player.bombAmount += 1;
-                }
-                else if (infrontTileNum1 == 's') {
-                    gamePanel.level.mapTile[eLeftCol][eTopRow] = ' ';
-                    gamePanel.board.player.speed += 1;
-                }
-                else if (infrontTileNum2 == 's') {
-                    gamePanel.level.mapTile[eLeftCol][eBottomRow] = ' ';
-                    gamePanel.board.player.speed += 1;
-                }
-                else if (infrontTileNum1 == 'f') {
-                    gamePanel.level.mapTile[eLeftCol][eTopRow] = ' ';
-                    gamePanel.board.player.flameLength++;
-                }
-                else if (infrontTileNum2 == 'f') {
-                    gamePanel.level.mapTile[eLeftCol][eBottomRow] = ' ';
-                    gamePanel.board.player.flameLength++;
-                }
                 else if (infrontTileNum1 != ' ' || infrontTileNum2 != ' ') {
                     e.isCollide = true;
                 }
@@ -155,30 +83,6 @@ public class CheckCollision {
                 else if (infrontTileNum2 == 'x') {
                     e.isCollide = true;
                     if (gamePanel.board.countEnemies() == 0) gamePanel.board.player.reset = true;
-                }
-                else if (infrontTileNum1 == 'b') {
-                    gamePanel.level.mapTile[eRightCol][eBottomRow] = ' ';
-                    gamePanel.board.player.bombAmount++;
-                }
-                else if (infrontTileNum2 == 'b') {
-                    gamePanel.level.mapTile[eRightCol][eTopRow] = ' ';
-                    gamePanel.board.player.bombAmount++;
-                }
-                else if (infrontTileNum1 == 's') {
-                    gamePanel.level.mapTile[eRightCol][eBottomRow] = ' ';
-                    gamePanel.board.player.speed++;
-                }
-                else if (infrontTileNum2 == 's') {
-                    gamePanel.level.mapTile[eRightCol][eTopRow] = ' ';
-                    gamePanel.board.player.speed++;
-                }
-                else if (infrontTileNum1 == 'f') {
-                    gamePanel.level.mapTile[eRightCol][eBottomRow] = ' ';
-                    gamePanel.board.player.flameLength++;
-                }
-                else if (infrontTileNum2 == 'f') {
-                    gamePanel.level.mapTile[eRightCol][eTopRow] = ' ';
-                    gamePanel.board.player.flameLength++;
                 }
                 else if (infrontTileNum1 != ' ' || infrontTileNum2 != ' ') {
                     e.isCollide = true;

@@ -2,6 +2,7 @@ package bomberman;
 
 import bomberman.entity.CheckCollision;
 import bomberman.entity.movingEntity.Player;
+import bomberman.entity.tile.item.Item;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -11,15 +12,15 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int size = 16;
     public static final int scale = 3;
     public static final int tileSize = size * scale;
-    public final int cols = 31;
-    public final int rows = 13;
+    public static final int cols = 31;
+    public static final int rows = 13;
     public final int MAP_WIDTH = cols * tileSize;
     public final int MAP_HEIGHT = rows * tileSize;
-    public final int SCREEN_WIDTH = cols * tileSize / 2;
-    public final int SCREEN_HEIGHT = rows * tileSize;
+    public static final int SCREEN_WIDTH = cols * tileSize / 2;
+    public static final int SCREEN_HEIGHT = rows * tileSize;
     KeyInput keyInput = new KeyInput();
     Thread thread;
-    //public Player player = new Player(this, keyInput);
+    public Sound sound = new Sound();
     public CheckCollision checkCollision = new CheckCollision(this);
     public Board board = new Board(this);
     public Level level = new Level(this);
@@ -35,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void startGameThread() {
         thread = new Thread(this);
         thread.start();
+        playMusic(0);
     }
 
     @Override
@@ -58,7 +60,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update() {
         board.update();
-        level.update();
     }
 
     @Override
@@ -66,10 +67,32 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        for (Item item: board.items) {
+            if (level.mapTile[item.mapX / tileSize][item.mapY / tileSize] == '*') {
+                item.draw(g2);
+            }
+        }
+        if (board.portal != null && level.mapTile[board.portal.mapX / GamePanel.tileSize][board.portal.mapY / GamePanel.tileSize] == '*') {
+            board.portal.draw(g2);
+        }
         level.draw(g2);
         board.draw(g2);
-        //board.player.draw(g2);
 
         g2.dispose();
+    }
+
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic() {
+        sound.stop();
+    }
+
+    public void playSoundEffect(int i) {
+        sound.setFile(i);
+        sound.play();
     }
 }

@@ -19,6 +19,7 @@ public class ExplosionFlame extends Entity {
 
     int frame;
     int flameAnimation;
+    public int topFlameLength, downFlameLength, leftFlameLength, rightFlameLength;
 
     boolean[] isSomeBrickExploded = new boolean[4];
     Brick[] brick = new Brick[4];
@@ -73,17 +74,27 @@ public class ExplosionFlame extends Entity {
         for (int i = 0; i < 4; i++) isSomeBrickExploded[i] = false;
         int screenX = mapX - gamePanel.board.player.mapX + gamePanel.board.player.screenX;
         int screenY = mapY - gamePanel.board.player.mapY + gamePanel.board.player.screenY;
+
+        rightFlameLength = gamePanel.board.player.flameLength;
+        leftFlameLength = gamePanel.board.player.flameLength;
+        topFlameLength = gamePanel.board.player.flameLength;
+        downFlameLength = gamePanel.board.player.flameLength;
+
         for (int i = 1; i <= gamePanel.board.player.flameLength; i++) {
             if (gamePanel.level.mapTile[(mapX + i * tileSize) / tileSize][mapY / tileSize] == ' ') {
                 if (i != gamePanel.board.player.flameLength) {
                     g2.drawImage(horizontalFlame[flameAnimation], screenX + i * tileSize, screenY, tileSize, tileSize, null);
                 } else g2.drawImage(rightFlame[flameAnimation], screenX + i * tileSize, screenY, tileSize, tileSize, null);
             } else if (gamePanel.level.mapTile[(mapX + i * tileSize) / tileSize][mapY / tileSize] == '*') {
+                rightFlameLength = i - 1;
                 isSomeBrickExploded[0] = true;
                 brick[0].setCoordinate(mapX + i * tileSize, mapY);
                 brick[0].draw(g2);
                 break;
-            } else break;
+            } else {
+                rightFlameLength = i - 1;
+                break;
+            }
         }
 
         for (int i = 1; i <= gamePanel.board.player.flameLength; i++) {
@@ -92,11 +103,15 @@ public class ExplosionFlame extends Entity {
                     g2.drawImage(horizontalFlame[flameAnimation], screenX - i * tileSize, screenY, tileSize, tileSize, null);
                 } else g2.drawImage(leftFlame[flameAnimation], screenX - i * tileSize, screenY, tileSize, tileSize, null);
             } else if (gamePanel.level.mapTile[(mapX - i * tileSize) / tileSize][mapY / tileSize] == '*') {
+                leftFlameLength = i - 1;
                 isSomeBrickExploded[1] = true;
                 brick[1].setCoordinate(mapX - i * tileSize, mapY);
                 brick[1].draw(g2);
                 break;
-            } else break;
+            } else {
+                leftFlameLength = i - 1;
+                break;
+            }
         }
 
         for (int i = 1; i <= gamePanel.board.player.flameLength; i++) {
@@ -105,11 +120,15 @@ public class ExplosionFlame extends Entity {
                     g2.drawImage(verticalFlame[flameAnimation], screenX, screenY + i * tileSize, tileSize, tileSize, null);
                 } else g2.drawImage(downFlame[flameAnimation], screenX, screenY + i * tileSize, tileSize, tileSize, null);
             } else if (gamePanel.level.mapTile[mapX / tileSize][(mapY + i * tileSize) / tileSize] == '*') {
+                downFlameLength = i - 1;
                 isSomeBrickExploded[2] = true;
                 brick[2].setCoordinate(mapX, mapY + i * tileSize);
                 brick[2].draw(g2);
                 break;
-            } else break;
+            } else {
+                downFlameLength = i - 1;
+                break;
+            }
         }
 
         for (int i = 1; i <= gamePanel.board.player.flameLength; i++) {
@@ -118,11 +137,15 @@ public class ExplosionFlame extends Entity {
                     g2.drawImage(verticalFlame[flameAnimation], screenX, screenY - i * tileSize, tileSize, tileSize, null);
                 } else g2.drawImage(topFlame[flameAnimation], screenX, screenY - i * tileSize, tileSize, tileSize, null);
             } else if (gamePanel.level.mapTile[mapX / tileSize][(mapY - i * tileSize) / tileSize] == '*') {
+                topFlameLength = i - 1;
                 isSomeBrickExploded[3] = true;
                 brick[3].setCoordinate(mapX, mapY - i * tileSize);
                 brick[3].draw(g2);
                 break;
-            } else break;
+            } else {
+                topFlameLength = i - 1;
+                break;
+            }
         }
     }
 

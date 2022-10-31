@@ -3,6 +3,11 @@ package bomberman;
 import bomberman.entity.Bomb;
 import bomberman.entity.movingEntity.MovingEntity;
 import bomberman.entity.movingEntity.Player;
+import bomberman.entity.tile.Portal;
+import bomberman.entity.tile.item.BombItem;
+import bomberman.entity.tile.item.FlameItem;
+import bomberman.entity.tile.item.Item;
+import bomberman.entity.tile.item.SpeedItem;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,9 +16,11 @@ import java.util.List;
 public class Board {
     GamePanel gamePanel;
     List<MovingEntity> enemies = new ArrayList<>();
-    List<Bomb> bombs = new ArrayList<>();
+    public List<Bomb> bombs = new ArrayList<>();
+    List<Item> items = new ArrayList<>();
 
     public Player player;
+    public Portal portal;
 
     public Board(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -24,6 +31,14 @@ public class Board {
         }
         for (MovingEntity enemy : enemies) {
             enemy.draw(g2);
+        }
+        for (Item item: items) {
+            if (gamePanel.level.mapTile[item.mapX / GamePanel.tileSize][item.mapY / GamePanel.tileSize] == ' ') {
+                item.draw(g2);
+            }
+        }
+        if (gamePanel.level.mapTile[portal.mapX / GamePanel.tileSize][portal.mapY / GamePanel.tileSize] == ' ') {
+            portal.draw(g2);
         }
         player.draw(g2);
     }
@@ -58,11 +73,29 @@ public class Board {
                 player.kill();
             }
         }
+        for (int i = 0; i < items.size(); i++) {
+            if (player.collideWithItem(items.get(i))) {
+                gamePanel.playSoundEffect(1);
+                if (items.get(i) instanceof BombItem) player.bombAmount++;
+                else if (items.get(i) instanceof FlameItem) player.flameLength++;
+                else if (items.get(i) instanceof SpeedItem) player.speed++;
+                removeItem(items.get(i));
+                i--;
+            }
+        }
         player.update();
     }
 
+    public void addItem(Item i) {
+        items.add(i);
+    }
+
+    public void removeItem(Item i) {
+        items.remove(i);
+    }
+
     public void addBomb(Bomb b) {
-        if (bombs.size() < player.bombAmount) bombs.add(b);
+        bombs.add(b);
     }
 
     public Bomb getBombAt(int x, int y) {
@@ -72,6 +105,9 @@ public class Board {
         return null;
     }
 
+    public void addPortal(Portal p) {
+        portal = p;
+    }
     public void addPlayer(Player p) {
         player = p;
     }

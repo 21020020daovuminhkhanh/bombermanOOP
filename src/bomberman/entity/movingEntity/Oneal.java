@@ -121,11 +121,11 @@ public class Oneal extends MovingEntity{
 
         int leftVerticalMapX = b.mapX;
         int rightVerticalMapX = b.mapX + tileSize;
-        int topVerticalMapY = b.mapY - gamePanel.board.player.flameLength * tileSize;
-        int bottomVerticalMapY = b.mapY + (gamePanel.board.player.flameLength + 1) * tileSize;
+        int topVerticalMapY = b.mapY - b.explosionFlame.topFlameLength * tileSize;
+        int bottomVerticalMapY = b.mapY + (b.explosionFlame.downFlameLength + 1) * tileSize;
 
-        int leftHorizontalMapX = b.mapX - gamePanel.board.player.flameLength * tileSize;
-        int rightHorizontalMapX = b.mapX + (gamePanel.board.player.flameLength + 1) * tileSize;
+        int leftHorizontalMapX = b.mapX - b.explosionFlame.leftFlameLength * tileSize;
+        int rightHorizontalMapX = b.mapX + (b.explosionFlame.rightFlameLength + 1) * tileSize;
         int topHorizontalMapY = b.mapY;
         int bottomHorizontalMapY = b.mapY + tileSize;
 

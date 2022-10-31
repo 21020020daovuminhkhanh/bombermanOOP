@@ -4,10 +4,10 @@ package bomberman;
 import javax.swing.JFrame;
 
 
-public class Main{
+public class Bomberman {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        frame.setSize(15 * 48, 13 * 48);
+        frame.setSize(GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         frame.setTitle("Bomberman");
         GamePanel g = new GamePanel();
         frame.add(g);

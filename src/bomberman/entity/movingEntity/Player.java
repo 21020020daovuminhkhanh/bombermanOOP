@@ -3,6 +3,7 @@ package bomberman.entity.movingEntity;
 import bomberman.GamePanel;
 import bomberman.KeyInput;
 import bomberman.entity.Bomb;
+import bomberman.entity.tile.item.Item;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -171,7 +172,7 @@ public class Player extends MovingEntity {
     }
 
     public void createBombAt(int x, int y) {
-        if (gamePanel.board.getBombAt(x, y) == null) {
+        if (gamePanel.board.getBombAt(x, y) == null && gamePanel.board.bombs.size() < bombAmount) {
             Bomb bomb = new Bomb(gamePanel);
             bomb.setCoordinate(x, y);
             gamePanel.board.addBomb(bomb);
@@ -191,6 +192,7 @@ public class Player extends MovingEntity {
     }
 
     public void kill() {
+        if (isLiving) gamePanel.playSoundEffect(2);
         isLiving = false;
     }
 
@@ -218,11 +220,11 @@ public class Player extends MovingEntity {
 
         int leftVerticalMapX = b.mapX;
         int rightVerticalMapX = b.mapX + tileSize;
-        int topVerticalMapY = b.mapY - flameLength * tileSize;
-        int bottomVerticalMapY = b.mapY + (flameLength + 1) * tileSize;
+        int topVerticalMapY = b.mapY - b.explosionFlame.topFlameLength * tileSize;
+        int bottomVerticalMapY = b.mapY + (b.explosionFlame.downFlameLength + 1) * tileSize;
 
-        int leftHorizontalMapX = b.mapX - flameLength * tileSize;
-        int rightHorizontalMapX = b.mapX + (flameLength + 1) * tileSize;
+        int leftHorizontalMapX = b.mapX - b.explosionFlame.leftFlameLength * tileSize;
+        int rightHorizontalMapX = b.mapX + (b.explosionFlame.rightFlameLength + 1) * tileSize;
         int topHorizontalMapY = b.mapY;
         int bottomHorizontalMapY = b.mapY + tileSize;
 
@@ -231,6 +233,22 @@ public class Player extends MovingEntity {
         if (leftPlayerMapX <= rightHorizontalMapX && rightPlayerMapX >= leftHorizontalMapX &&
                 topPlayerMapY <= bottomHorizontalMapY && bottomPlayerMapY >= topHorizontalMapY) return true;
         return false;
+    }
+
+    public boolean collideWithItem(Item item) {
+        int leftPlayerMapX = mapX + hitbox.x;
+        int rightPlayerMapX = mapX + hitbox.x + hitbox.width;
+        int topPlayerMapY = mapY + hitbox.y;
+        int bottomPlayerMapY = mapY + hitbox.y + hitbox.height;
+
+        int leftItemMapX = item.mapX;
+        int rightItemMapX = item.mapX + tileSize;
+        int topItemMapY = item.mapY;
+        int bottomItemMapY = item.mapY + tileSize;
+
+        if (leftPlayerMapX < rightItemMapX && rightPlayerMapX > leftItemMapX &&
+                topPlayerMapY < bottomItemMapY && bottomPlayerMapY > topItemMapY) return true;
+        else return false;
     }
 
     //xoa mau hong thay bang mau cua grass.

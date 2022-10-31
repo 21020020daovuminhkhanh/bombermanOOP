@@ -24,11 +24,6 @@ public class Level {
     public Tile wall;
     public Tile grass;
     public Tile brick;
-    public Tile portal;
-
-    Item bombItem;
-    Item speedItem;
-    Item flameItem;
     Player player;
     
     public Level(GamePanel gamePanel) {
@@ -41,11 +36,6 @@ public class Level {
         wall = new Wall(gamePanel);
         grass = new Grass(gamePanel);
         brick = new Brick(gamePanel);
-        portal = new Portal(gamePanel);
-
-        bombItem = new BombItem(gamePanel);
-        flameItem = new FlameItem(gamePanel);
-        speedItem = new SpeedItem(gamePanel);
     }
 
     public void loadMapTile() {
@@ -103,8 +93,10 @@ public class Level {
                         break;
 
                     case 'x':
+                        mapTile[i][j] = '*';
+                        Portal portal = new Portal(gamePanel);
                         portal.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
-                        portal.draw(g2);
+                        gamePanel.board.addPortal(portal);
                         break;
 
                     case '1':
@@ -122,18 +114,25 @@ public class Level {
                         break;
 
                     case 'b':
+                        mapTile[i][j] = '*';
+                        Item bombItem = new BombItem(gamePanel);
                         bombItem.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
-                        bombItem.draw(g2);
+                        gamePanel.board.addItem(bombItem);
                         break;
 
+
                     case 'f':
+                        mapTile[i][j] = '*';
+                        Item flameItem = new FlameItem(gamePanel);
                         flameItem.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
-                        flameItem.draw(g2);
+                        gamePanel.board.addItem(flameItem);
                         break;
 
                     case 's':
+                        mapTile[i][j] = '*';
+                        Item speedItem = new SpeedItem(gamePanel);
                         speedItem.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
-                        speedItem.draw(g2);
+                        gamePanel.board.addItem(speedItem);
                         break;
 
                     case 'p':

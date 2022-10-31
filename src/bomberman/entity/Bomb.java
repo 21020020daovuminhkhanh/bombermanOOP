@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Bomb extends Entity {
-    boolean exploded;
+    boolean explode = false;
     public int bombTileX;
     public int bombTileY;
     public int bombAnimationCycle = 0;
@@ -63,6 +63,8 @@ public class Bomb extends Entity {
             g2.drawImage(bombImage[bombAnimation], screenX, screenY, tileSize, tileSize, null);
         }
         else {
+            if (!explode) gamePanel.playSoundEffect(3);
+            explode = true;
             g2.drawImage(explosion[bombAnimation], screenX, screenY, tileSize, tileSize, null);
             explosionFlame.draw(g2);
         }
