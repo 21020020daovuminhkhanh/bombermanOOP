@@ -44,26 +44,31 @@ public class Board {
     }
 
     public void update() {
-        for (MovingEntity enemy : enemies) {
-            enemy.update();
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update();
+            if (!enemies.get(i).isLiving && enemies.get(i).getAnimationIndex() > 3) {
+                removeEnemies(enemies.get(i));
+                i--;
+            }
         }
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
+            if (bombs.get(i).canGoThrough && !player.collideWithTile(bombs.get(i))) {
+                bombs.get(i).canGoThrough = false;
+                gamePanel.level.mapTile[bombs.get(i).bombTileX][bombs.get(i).bombTileY] = '?';
+            }
             if (bombs.get(i).bombAnimationCycle == bombs.get(i).maxBombAnimationCycle) {
                 if (player.collideWithExplosion(bombs.get(i))) {
                     player.kill();
                 }
-                for (int j = 0; j < enemies.size(); j++) {
-                    if (enemies.get(j).collideWithExplosion(bombs.get(i))) {
-                        enemies.get(j).isLiving = false;
-                        if (enemies.get(j).getAnimationIndex() == 3) {
-                            removeEnemies(enemies.get(j));
-                            j--;
-                        }
+                for (MovingEntity enemy : enemies) {
+                    if (enemy.collideWithExplosion(bombs.get(i))) {
+                        enemy.isLiving = false;
                     }
                 }
             }
             if (bombs.get(i).bombAnimationCycle > bombs.get(i).maxBombAnimationCycle) {
+                gamePanel.level.mapTile[bombs.get(i).bombTileX][bombs.get(i).bombTileY] = ' ';
                 bombs.remove(i);
                 i--;
             }
@@ -82,6 +87,9 @@ public class Board {
                 removeItem(items.get(i));
                 i--;
             }
+        }
+        if (portal != null && player.collideWithTile(portal) && countEnemies() == 0) {
+            player.reset = true;
         }
         player.update();
     }
@@ -105,6 +113,12 @@ public class Board {
         return null;
     }
 
+    public void clearBoard() {
+        enemies.clear();
+        bombs.clear();
+        items.clear();
+        portal = null;
+    }
     public void addPortal(Portal p) {
         portal = p;
     }

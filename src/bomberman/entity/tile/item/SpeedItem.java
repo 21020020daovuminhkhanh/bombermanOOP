@@ -12,11 +12,6 @@ public class SpeedItem extends Item {
         getImage();
     }
 
-    public void setCoordinate(int x, int y) {
-        this.mapX = x;
-        this.mapY = y;
-    }
-
     public void getImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/powerup_speed.png"));

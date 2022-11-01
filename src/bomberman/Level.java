@@ -65,7 +65,7 @@ public class Level {
     }
 
     public void resetGame() {
-        gamePanel.board.enemies.clear();
+        gamePanel.board.clearBoard();
         loadMapTile();
     }
 

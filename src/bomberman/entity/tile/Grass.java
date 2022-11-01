@@ -12,11 +12,6 @@ public class Grass extends Tile{
         getImage();
     }
 
-    public void setCoordinate(int x, int y) {
-        this.mapX = x;
-        this.mapY = y;
-    }
-
     public void getImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/grass.png"));

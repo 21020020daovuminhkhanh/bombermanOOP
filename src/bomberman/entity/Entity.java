@@ -12,5 +12,10 @@ public abstract class Entity {
 
     }
 
+    public void setCoordinate(int x, int y) {
+        mapX = x;
+        mapY = y;
+    }
+
     public abstract void update();
 }

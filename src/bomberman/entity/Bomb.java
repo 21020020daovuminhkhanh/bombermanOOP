@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class Bomb extends Entity {
     boolean explode = false;
+    public boolean canGoThrough = true;
     public int bombTileX;
     public int bombTileY;
     public int bombAnimationCycle = 0;
@@ -29,11 +30,6 @@ public class Bomb extends Entity {
         bombTileY = (gamePanel.board.player.mapY + tileSize / 2) / tileSize;
         explosionFlame.setCoordinate(bombTileX * tileSize, bombTileY * tileSize);
         getImage();
-    }
-
-    public void setCoordinate(int x, int y) {
-        mapX = x;
-        mapY = y;
     }
 
     public void getImage() {

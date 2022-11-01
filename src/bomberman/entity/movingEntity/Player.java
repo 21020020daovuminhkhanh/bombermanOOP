@@ -3,6 +3,8 @@ package bomberman.entity.movingEntity;
 import bomberman.GamePanel;
 import bomberman.KeyInput;
 import bomberman.entity.Bomb;
+import bomberman.entity.Entity;
+import bomberman.entity.tile.Portal;
 import bomberman.entity.tile.item.Item;
 
 import javax.imageio.ImageIO;
@@ -61,11 +63,6 @@ public class Player extends MovingEntity {
                 right[i] = right[i].getSubimage(0, 0, 12, 16);
                 left[i] = left[i].getSubimage(0, 0, 12, 16);
                 dead[i] = dead[i].getSubimage(0, 0,12, 16);
-                removeColor(up[i]);
-                removeColor(down[i]);
-                removeColor(left[i]);
-                removeColor(right[i]);
-                removeColor(dead[i]);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -143,8 +140,8 @@ public class Player extends MovingEntity {
 
         screenX = mapX;
         screenY = mapY;
-        if (mapX > gamePanel.SCREEN_WIDTH / 2 && mapX < gamePanel.MAP_WIDTH - gamePanel.SCREEN_WIDTH / 2) screenX = gamePanel.SCREEN_WIDTH / 2;
-        if (mapX >= gamePanel.MAP_WIDTH - gamePanel.SCREEN_WIDTH / 2) screenX = mapX - gamePanel.SCREEN_WIDTH;
+        if (mapX > GamePanel.SCREEN_WIDTH / 2 && mapX < gamePanel.MAP_WIDTH - GamePanel.SCREEN_WIDTH / 2) screenX = GamePanel.SCREEN_WIDTH / 2;
+        if (mapX >= gamePanel.MAP_WIDTH - GamePanel.SCREEN_WIDTH / 2) screenX = mapX - GamePanel.SCREEN_WIDTH;
     }
 
     public void draw(Graphics2D g2) {
@@ -177,11 +174,6 @@ public class Player extends MovingEntity {
             bomb.setCoordinate(x, y);
             gamePanel.board.addBomb(bomb);
         }
-    }
-
-    public void setCoordinate(int x, int y) {
-        this.mapX = x;
-        this.mapY = y;
     }
 
     public int getPlayerTileX() {
@@ -251,17 +243,19 @@ public class Player extends MovingEntity {
         else return false;
     }
 
-    //xoa mau hong thay bang mau cua grass.
-    public void removeColor(BufferedImage image) {
-        int w = image.getWidth();
-        int h = image.getHeight();
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
-                if (image.getRGB(i, j) == Color.MAGENTA.getRGB()) {
-                    image.setRGB(i, j, g.image.getRGB(i, j));
-                }
-            }
-        }
-    }
+    public boolean collideWithTile(Entity p) {
+        int leftPlayerMapX = mapX + hitbox.x;
+        int rightPlayerMapX = mapX + hitbox.x + hitbox.width;
+        int topPlayerMapY = mapY + hitbox.y;
+        int bottomPlayerMapY = mapY + hitbox.y + hitbox.height;
 
+        int leftPortalMapX = p.mapX;
+        int rightPortalMapX = p.mapX + tileSize;
+        int topPortalMapY = p.mapY;
+        int bottomPortalMapY = p.mapY + tileSize;
+
+        if (leftPlayerMapX < rightPortalMapX && rightPlayerMapX > leftPortalMapX &&
+                topPlayerMapY < bottomPortalMapY && bottomPlayerMapY > topPortalMapY) return true;
+        else return false;
+    }
 }

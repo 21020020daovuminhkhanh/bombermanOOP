@@ -19,11 +19,6 @@ public class Brick extends Tile{
         getImage();
     }
 
-    public void setCoordinate(int x, int y) {
-        this.mapX = x;
-        this.mapY = y;
-    }
-
     public void getImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/brick.png"));

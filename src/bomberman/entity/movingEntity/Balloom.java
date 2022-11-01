@@ -9,24 +9,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-public class Balloom extends MovingEntity{
+public class Balloom extends Enemy{
     BufferedImage[] balloomRightImage = new BufferedImage[3];
     BufferedImage[] balloomLeftImage = new BufferedImage[3];
     BufferedImage[] balloomDead = new BufferedImage[4];
     public int balloomAnimation = 0;
     public int balloomDeadAnimation = 0;
-    Random random = new Random();
     public Balloom(GamePanel gp) {
         gamePanel = gp;
         speed = 2;
         hitbox = new Rectangle(3, 3, 42, 42);
         direction = "right";
         getImage();
-    }
-
-    public void setCoordinate(int x, int y) {
-        this.mapX = x;
-        this.mapY = y;
     }
 
     public void getImage() {
@@ -41,12 +35,6 @@ public class Balloom extends MovingEntity{
             balloomDead[1] = ImageIO.read(getClass().getResourceAsStream("/sprites/mob_dead1.png"));
             balloomDead[2] = ImageIO.read(getClass().getResourceAsStream("/sprites/mob_dead2.png"));
             balloomDead[3] = ImageIO.read(getClass().getResourceAsStream("/sprites/mob_dead3.png"));
-            for (int i = 0; i < 3; i++) {
-                removeColor(balloomRightImage[i]);
-                removeColor(balloomLeftImage[i]);
-                removeColor(balloomDead[i]);
-            }
-            removeColor(balloomDead[3]);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,18 +64,15 @@ public class Balloom extends MovingEntity{
             if (frame > 12) {
                 frame = 0;
                 balloomDeadAnimation++;
-                if (balloomDeadAnimation > 3) {
-                    balloomDeadAnimation = 3;
-                }
             }
             return;
-        }
-
-        frame++;
-        if (frame > 8) {
-            frame = 0;
-            balloomAnimation++;
-            if (balloomAnimation > 2) balloomAnimation = 0;
+        } else {
+            frame++;
+            if (frame > 8) {
+                frame = 0;
+                balloomAnimation++;
+                if (balloomAnimation > 2) balloomAnimation = 0;
+            }
         }
 
         isCollide = false;
@@ -117,39 +102,5 @@ public class Balloom extends MovingEntity{
             image = balloomLeftImage[balloomAnimation];
         }
         g2.drawImage(image, screenX, screenY, tileSize, tileSize, null);
-    }
-
-    public boolean collideWithExplosion(Bomb b) {
-        int leftEnemyMapX = mapX + hitbox.x;
-        int rightEnemyMapX = mapX + hitbox.x + hitbox.width;
-        int topEnemyMapY = mapY + hitbox.y;
-        int bottomEnemyMapY = mapY + hitbox.y + hitbox.height;
-
-        int leftVerticalMapX = b.mapX;
-        int rightVerticalMapX = b.mapX + tileSize;
-        int topVerticalMapY = b.mapY - b.explosionFlame.topFlameLength * tileSize;
-        int bottomVerticalMapY = b.mapY + (b.explosionFlame.downFlameLength + 1) * tileSize;
-
-        int leftHorizontalMapX = b.mapX - b.explosionFlame.leftFlameLength * tileSize;
-        int rightHorizontalMapX = b.mapX + (b.explosionFlame.rightFlameLength + 1) * tileSize;
-        int topHorizontalMapY = b.mapY;
-        int bottomHorizontalMapY = b.mapY + tileSize;
-
-        if (leftEnemyMapX <= rightVerticalMapX && rightEnemyMapX >= leftVerticalMapX &&
-                topEnemyMapY <= bottomVerticalMapY && bottomEnemyMapY >= topVerticalMapY) return true;
-        if (leftEnemyMapX <= rightHorizontalMapX && rightEnemyMapX >= leftHorizontalMapX &&
-                topEnemyMapY <= bottomHorizontalMapY && bottomEnemyMapY >= topHorizontalMapY) return true;
-        return false;
-    }
-    public void removeColor(BufferedImage image) {
-        int w = image.getWidth();
-        int h = image.getHeight();
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
-                if (image.getRGB(i, j) == Color.MAGENTA.getRGB()) {
-                    image.setRGB(i, j, g.image.getRGB(i,j));
-                }
-            }
-        }
     }
 }

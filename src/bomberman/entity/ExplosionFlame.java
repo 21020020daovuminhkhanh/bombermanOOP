@@ -65,11 +65,6 @@ public class ExplosionFlame extends Entity {
         }
     }
 
-    public void setCoordinate(int x, int y) {
-        mapX = x;
-        mapY = y;
-    }
-
     public void draw(Graphics2D g2) {
         for (int i = 0; i < 4; i++) isSomeBrickExploded[i] = false;
         int screenX = mapX - gamePanel.board.player.mapX + gamePanel.board.player.screenX;
