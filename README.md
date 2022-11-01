@@ -34,4 +34,8 @@ Dự án dùng thư viện Java Swing
   
   ![image](https://user-images.githubusercontent.com/100520334/199205523-d50ebc49-f2fc-4ae2-badc-d5d1457eca48.png)
 
+  6. Tất cả đối tượng
+  
+  ![image](https://user-images.githubusercontent.com/100520334/199212549-276ce6ed-1584-4b77-9060-f7b0ec224c4c.png)
+
 
