@@ -1,9 +1,6 @@
 package bomberman;
 
-import bomberman.entity.movingEntity.Balloom;
-import bomberman.entity.movingEntity.MovingEntity;
-import bomberman.entity.movingEntity.Oneal;
-import bomberman.entity.movingEntity.Player;
+import bomberman.entity.movingEntity.*;
 import bomberman.entity.tile.*;
 import bomberman.entity.tile.item.BombItem;
 import bomberman.entity.tile.item.FlameItem;
@@ -101,16 +98,30 @@ public class Level {
 
                     case '1':
                         mapTile[i][j] = ' ';
-                        MovingEntity balloom = new Balloom(gamePanel);
+                        Enemy balloom = new Balloom(gamePanel);
                         balloom.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
                         gamePanel.board.addEnemies(balloom);
                         break;
 
                     case '2':
                         mapTile[i][j] = ' ';
-                        MovingEntity oneal = new Oneal(gamePanel);
+                        Enemy oneal = new Oneal(gamePanel);
                         oneal.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
                         gamePanel.board.addEnemies(oneal);
+                        break;
+
+                    case '3':
+                        mapTile[i][j] = ' ';
+                        Enemy doll = new Doll(gamePanel);
+                        doll.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
+                        gamePanel.board.addEnemies(doll);
+                        break;
+
+                    case '4':
+                        mapTile[i][j] = ' ';
+                        Enemy minvo = new Minvo(gamePanel);
+                        minvo.setCoordinate(i * GamePanel.tileSize, j * GamePanel.tileSize);
+                        gamePanel.board.addEnemies(minvo);
                         break;
 
                     case 'b':

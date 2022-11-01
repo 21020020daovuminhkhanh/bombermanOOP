@@ -42,21 +42,23 @@ public class Oneal extends Enemy {
     }
 
     public void nextDirection() {
-        int r = random.nextInt(4);
-        switch (r) {
-            case 0:
-                direction = "up";
-                break;
-            case 1:
-                direction = "down";
-                break;
-            case 2:
-                direction = "left";
-                break;
-            case 3:
-                direction = "right";
-                break;
-        };
+        int horizontalDistance = Math.abs(gamePanel.board.player.mapX - mapX);
+        int verticalDistance = Math.abs(gamePanel.board.player.mapY - mapY);
+        if (horizontalDistance < verticalDistance) {
+            if (horizontalDistance <= 6) {
+                if (gamePanel.board.player.mapY - mapY > 0) direction = "down";
+                else if (gamePanel.board.player.mapY - mapY < 0) direction = "up";
+            }
+            else if (gamePanel.board.player.mapX - mapX > 0) direction = "right";
+            else if (gamePanel.board.player.mapX - mapX < 0) direction = "left";
+        } else {
+            if (verticalDistance <= 6) {
+                if (gamePanel.board.player.mapX - mapX > 0) direction = "right";
+                else if (gamePanel.board.player.mapX - mapX < 0) direction = "left";
+            }
+            else if (gamePanel.board.player.mapY - mapY > 0) direction = "down";
+            else if (gamePanel.board.player.mapY - mapY < 0) direction = "up";
+        }
     }
 
     public void update() {
@@ -78,8 +80,8 @@ public class Oneal extends Enemy {
 
         isCollide = false;
         gamePanel.checkCollision.checkTile(this);
-        if (isCollide) nextDirection();
-        else {
+        if (mapX % tileSize <= 3 || mapY % tileSize <= 3 || isCollide) nextDirection();
+        if (!isCollide) {
             if (direction.equals("up")) mapY -= speed;
             if (direction.equals("down")) mapY += speed;
             if (direction.equals("left")) mapX -= speed;

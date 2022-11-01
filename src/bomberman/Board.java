@@ -1,6 +1,7 @@
 package bomberman;
 
 import bomberman.entity.Bomb;
+import bomberman.entity.movingEntity.Enemy;
 import bomberman.entity.movingEntity.MovingEntity;
 import bomberman.entity.movingEntity.Player;
 import bomberman.entity.tile.Portal;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class Board {
     GamePanel gamePanel;
-    List<MovingEntity> enemies = new ArrayList<>();
+    List<Enemy> enemies = new ArrayList<>();
     public List<Bomb> bombs = new ArrayList<>();
     List<Item> items = new ArrayList<>();
 
@@ -126,11 +127,11 @@ public class Board {
         player = p;
     }
 
-    public void addEnemies(MovingEntity e) {
+    public void addEnemies(Enemy e) {
         enemies.add(e);
     }
 
-    public void removeEnemies(MovingEntity e) {
+    public void removeEnemies(Enemy e) {
         enemies.remove(e);
     }
 
